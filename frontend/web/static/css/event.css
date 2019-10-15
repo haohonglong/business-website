@@ -1,0 +1,38 @@
+.Event{
+    background:url(../img/1_01_03.gif) ;
+    width: 100%;
+    height: 504px;
+    background-size: cover;
+}
+.plan{
+    margin-top:159px ;
+    width: 1200px;
+    margin: 0 auto;
+    height: 504px;
+}
+.Care_for{
+
+    padding-top:158px;
+    height: 504px;
+     
+}
+.Care_for div ul {
+     display: flex;
+} 
+.Care_for div h3 {
+   font-size:16px;
+   color: #757168;
+   margin-bottom:23px; 
+
+}
+.Care_for div ul li h5 {
+    font-size:32px;
+    color: #2d2d2f;
+    line-height: 51px;
+    margin-right:11px; 
+} 
+.Care_for div ul  li p{
+    font-size: 15px;
+    color: #7a766a;
+    line-height: 51px;
+} 

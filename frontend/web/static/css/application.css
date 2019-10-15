@@ -1,0 +1,269 @@
+/* 导航 */
+*{
+    margin: 0;
+    padding: 0;
+}
+.navigation{
+    width: 1200px;
+    margin: 0 auto;
+    height: 90px;
+    display: flex;
+}
+.navigation  div img{
+    margin-top: 21px;
+    display: inline-block;
+}
+.navigation  div ul {
+    list-style: none;
+    display: flex;
+    margin-left:252px; 
+    height: 90px;
+}
+.navigation  div ul li {
+    line-height: 90px;
+    margin-left:38px; 
+
+}
+.navigation  div ul li a{
+    text-decoration:none;
+    color: black;
+}
+.navigation  div ul li:hover{
+    border-bottom: 4px black solid;
+} 
+.search{
+     height: 90px;
+     margin-left:40px;  
+    line-height: 90px;
+}
+.secondlevel{
+    height: 50px;
+    background-color: #0057c1;
+}
+.secondlevel-link{
+    width: 1200px;
+    margin: 0 auto;
+    height: 50px;
+}
+.secondlevel-link ul {
+    margin-left:533px;
+    list-style: none;
+    display: flex;
+}
+.secondlevel-link ul li{
+    margin-left:32px;
+    line-height: 50px;
+}
+.secondlevel-link ul li a{
+    text-decoration:none;
+    color: #c9ac66;
+
+}
+.secondlevel-link ul li a:hover{
+
+    color:bisque;
+    
+}
+.secondlevel{
+    position: absolute;
+    width: 100%;
+    display:none;
+}
+.secondleve-link{
+    width: 1200px;
+    margin: 0 auto;
+    height: 50px;
+}
+.secondleve-link ul {
+    margin-left:630px;
+    list-style: none;
+    display: flex;
+}
+.secondleve-link ul li{
+    margin-left:32px;
+    line-height: 50px;
+}
+.secondleve-link ul li a{
+    text-decoration:none;
+    color: #c9ac66;
+
+}
+.secondleve-link ul li a:hover{
+
+    color:bisque;
+    
+}
+.secondleve{
+    position: absolute;
+    width: 100%;
+    display:none;
+}
+.ollectivenews{
+    width: 1200px;
+    margin: 0 auto;
+    height: 50px;
+}
+.ollectivenews ul {
+    margin-left:630px;
+    list-style: none;
+    display: flex;
+}
+.ollectivenews ul li{
+    margin-left:32px;
+    line-height: 50px;
+}
+.ollectivenews ul li a{
+    text-decoration:none;
+    color: #c9ac66;
+
+}
+.ollectivenews ul li a:hover{
+
+    color:bisque;
+    
+}
+.ollectivenews{
+    position: absolute;
+    width: 100%;
+    display:none;
+}
+/* 图片 */
+.Background-map{
+    width: 100%;
+}
+.Background-map img{
+    vertical-align:bottom;
+    width: 100%;
+}
+/* 标题 */
+.Title{
+    width: 1200px;
+    margin: 0 auto;
+    
+
+}
+.Its-products{
+    width: 96px;
+    margin: 0 auto;
+    height: 24px;
+}
+.Its-products h3{
+    font-size: 24px;
+    margin: 0 auto;
+    line-height: 24px;
+    margin-top: 40px;
+    color: #003b8d;
+}
+/* 走进方巨 */
+.Enter{
+    width: 1200px;
+    margin: 0 auto;
+}
+.Enter ul {
+    display: flex;
+}
+.Enter ul li{
+    list-style: none;
+   font-size: 13px;
+   color: #9b9b9b;
+   margin: 10px 0 27px 0;
+}
+/* 投资 */
+.Investment{
+    width: 1200px;
+    background-color: #f6f9ff;
+    margin: 0 auto;
+    padding-bottom:90px; 
+}
+.Development{
+   padding: 37px 0 14px 58px;
+    border-bottom:1px solid #e6edf5;
+}
+.Development h3{
+    font-size:23px;
+    color: #303135;
+}
+.Development p{
+    font-size: 14px;
+    color: #babdc2;
+}
+.Development ul {
+    float: right; 
+    list-style: none;
+    margin:-63px 50px 0 0; 
+}
+.Duty{
+    margin: 34px 0 0 60px;
+}
+.Duty ul {
+
+    padding-left:10px; 
+    list-style: decimal;
+}
+.Duty ul li{
+    line-height: 28px;
+}
+.post{
+    margin: 41px 0 0 60px;
+}
+.post ul {
+
+    padding-left:10px; 
+    list-style: decimal;
+}
+.post ul li{
+    line-height: 28px;
+}
+.I-apply{
+    margin: 51px 0 0 60px;
+    
+    width: 131px;
+    height: 44px;
+    background-color: #003993;
+}
+.I-apply h3{
+    font-size: 16px;
+    color: #fcfff8;
+    text-align:center;
+    line-height: 44px;
+}
+/* 底部 */
+.Bottom-navigation{
+    background-color: #003993;
+}
+.bottom{
+    width: 1200px;
+    margin: 0 auto;
+    height: 96px;
+}
+.copyright{
+    display: flex;
+    padding-top: 28px;
+}
+.copyright ul li {
+    list-style: none;
+    color: #9ba6de;
+    line-height: 26px;
+    font-size: 14px;
+}
+.WeChat{
+    margin-left:28px; 
+}
+
+.bottom ul{
+    float: right;
+}
+.Navigation-connection{
+    margin-left:460px; 
+}
+.Home-Page{
+    display: flex;
+}
+.Home-Page li{
+    margin-left:30px; 
+}
+.Navigation-connection p{
+    font-size: 12px;
+    color: #95add1;
+    margin-left:30px; 
+}

@@ -1,0 +1,45 @@
+.howie{
+    width: 1200px;
+    margin: 0 auto;
+}
+.video{
+   width: 120px;
+   display: flex;
+}
+.video_one{
+    width: 639px;
+    height: 366px;
+}
+.video_one video{
+    width: 639px;
+    height: 366px;
+    
+}
+.Raw_heel ul{
+    display:flex;
+    margin-left:20px; 
+}
+.Raw_heel ul li{
+    list-style: none;
+    width: 260px;
+    height: 170px;
+    margin-right:20px; 
+}
+.Raw_heel ul:nth-of-type(2){
+    margin-top:20px; 
+}
+.Raw_heel ul li video{
+    
+    width: 260px;
+    height: 170px;
+}
+.Meeting ul{
+    display: flex;
+    
+}
+.Meeting ul li{
+    margin:20px 0 0 20px; 
+    width: 386px;
+    height: 172px;
+    list-style: none;
+}

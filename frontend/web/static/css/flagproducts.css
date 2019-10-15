@@ -1,0 +1,70 @@
+.nvestme{
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    background-color: #f6f9ff;
+}
+.Povert{
+    width: 254px;
+}
+.Povert div a img{
+    display: block;
+}
+.Communication{
+    margin:0 0 0 60px; 
+}
+.Communication ul{
+    background-color: #f6f9ff;
+}
+.Communication ul li {
+    list-style: none;
+    display: flex;
+    background-color:#fff;
+    margin-top:39px; 
+}
+
+.Meeting{
+    margin:0 18px 0 30px; 
+}
+.Meeting h3{
+    margin-top:37px; 
+    font-size: 22px;
+    color: #8e847b;
+}
+.Meeting h3 span{
+    display:inline-block ;
+    margin-left:112px;
+    font-size: 12px;
+    color: #c0c0c0; 
+}
+.Meeting   p{
+    margin-top:24px; 
+    line-height: 28px;
+    font-size: 14px;
+    color: #898079;
+}
+.heo{
+    width: 845px;
+    height: 160px;
+    background-color: #f6f9ff;
+}
+.heo img{
+    
+      padding: 50px 0 50px 393px;
+      background-color: #f6f9ff;
+}
+.Povert div {
+    margin-top:42px ;
+    text-align: right;
+    width: 254px;
+}
+.Povert div a {
+    text-decoration: none;
+   font-size: 22px;
+}
+.Povert div a p{
+    text-decoration: none;
+    width: 254px;
+    text-align:  right;
+    font-size: 13px;
+}

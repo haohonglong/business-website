@@ -1,0 +1,10 @@
+.ljie{
+    width: 1200px;
+    margin: 0 auto;
+    background-color: #f6f9ff;
+    padding-bottom:28px; 
+    display:flex;
+}
+.ljie div:nth-of-type(1){
+    margin: 40px;
+}

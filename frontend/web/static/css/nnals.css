@@ -1,0 +1,41 @@
+.numbe{
+    width: 1200px;
+    margin: 0 auto;
+    background-color: #f6f9ff;
+    display: flex;
+    height: 865px;
+}
+.numbe div:nth-of-type(1){
+    
+}
+.numbe div:nth-of-type(1) ul  {
+    margin-top:58px; 
+}
+.numbe div:nth-of-type(1) ul li {
+   list-style: none; 
+   font-size: 16px;
+   color: #525657;
+   
+}
+.Winning{
+    margin-bottom:403px; 
+}
+.Winning li{
+   line-height: 32px;
+   text-align:right;
+}
+.project li {
+    text-align:right;
+}
+.numbe div:nth-of-type(2){
+    margin:57px 0 0  20px; 
+}
+.numbe div:nth-of-type(3){
+    margin:206px 0 0  20px; 
+}
+.numbe div:nth-of-type(3) ul li{
+    line-height: 32px;
+    list-style: none;
+    font-size: 14px;
+    color: #525657;
+}

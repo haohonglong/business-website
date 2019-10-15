@@ -1,0 +1,103 @@
+.Investme{
+    width: 1200px;
+    margin: 0 auto;
+}
+.Poverty{
+    display: flex;
+}
+.mailbox{
+    margin:66px 0 0 40px ;
+}
+.mailbox ul li{
+    list-style: none;
+    margin-bottom:22px ;
+}
+.mailbox ul li h3{
+    list-style: none;
+    font-size: 14px;
+}
+.heoalod{
+    display: flex;
+}
+.heoalod div{
+    margin-right:30px ;
+    width: 144px;
+}
+.heoalod div div  img{
+    display: block;
+    margin: 0 auto;
+    padding:20px 0 20px 0 ;
+}
+.heoap{
+    margin-top:66px ;
+}
+.information{
+    width: 1200px;
+    margin:0 auto ;
+}
+.information h3{
+    text-align: center;
+    margin-bottom:30px ;
+}
+.information div{
+   display: flex;
+   margin: 0 auto;
+   
+}
+.Fullname{
+    width: 344px;
+    height: 42px;
+    border: 1px solid #e1e1e1;
+}
+.Fullname img{
+    width: 12px;
+    height: 12px;
+   margin: 13px 14px 15px;
+    
+}
+.Fullname input{
+    border: none;
+    
+}
+
+.hhoqpa{
+    margin:32px 0 0 27px ;
+    border: 1px solid #e1e1e1;
+    width: 1144px;
+    display: flex;
+}
+.hhoqpa div:nth-of-type(1){
+    margin: 13px 0 0 11px;
+}
+.hhoqpa div:nth-of-type(2){
+    margin: 13px 0 0 11px;
+}
+.hhoqpa div:nth-of-type(2) textarea{
+    
+    resize: none;
+    cursor: pointer;
+    border: solid 0px;
+    outline:none;
+    
+}
+.hhoqpa img{
+    /* display: block ; */
+}
+.hhoqpa button{
+    display:inline-block;
+}
+.Sendout{
+    width: 1152px;
+    margin: 0 auto;
+    background-color: blue;
+    height: 53px;
+}
+.Sendout button{
+    display:block; 
+    margin:0 auto;
+    border: none;
+    background-color: blue;
+    color: #fff;
+    line-height: 53px;
+    
+}
