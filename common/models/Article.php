@@ -99,7 +99,7 @@ class Article extends \yii\db\ActiveRecord
             [['cid', 'sort', 'author_id'], 'compare', 'compareValue' => 0, 'operator' => '>='],
             [['title', 'status'], 'required'],
             [['can_comment', 'visibility'], 'default', 'value' => Constants::YesNo_Yes],
-            [['thumb'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif, webp'],
+            [['thumb'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif, webp, mp4'],
             [['content'], 'string'],
             [['images'], 'safe'],
             [['created_at', 'updated_at'], 'safe'],

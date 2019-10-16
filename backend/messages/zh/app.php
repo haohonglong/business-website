@@ -8,6 +8,8 @@
 
 return [
     /*public*/
+    'Scan' => '浏览次数',
+    'Video' => '视频',
     'Home' => '首页',
     'Created At' => '创建时间',
     'Updated At' => '最后更新',

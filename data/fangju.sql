@@ -49,9 +49,10 @@ CREATE TABLE `guestbook` (
 DROP TABLE IF EXISTS `video`;
 CREATE TABLE `video` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` varchar(255) NOT NULL COMMENT '用户名',
+  `uid` int(10) unsigned NOT NULL COMMENT '上传用户',
   `title` varchar(255) NOT NULL COMMENT '',
   `url` varchar(255) NOT NULL  COMMENT '视频地址',
+  `scan` int(30) NOT NULL DEFAULT '0' COMMENT '游览次数',
   `created_at` int(11) unsigned NOT NULL COMMENT '创建时间',
   `updated_at` int(11) unsigned NOT NULL COMMENT '最后修改时间',
   PRIMARY KEY (`id`)

@@ -55,7 +55,7 @@ class Article extends CommonArticle
             ':m'=>$page_n,
             ':n'=>$rows,
         ])->queryAll();
-var_dump($page_n,$rows,$total,$models);exit;
+//var_dump($page_n,$rows,$total,$models);exit;
         foreach ($models as $k=> $v){
             $models[$k]['date'] = date('Y-m-d',$v['updated_at']);
         }
