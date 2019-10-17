@@ -20,31 +20,31 @@ $this->title = '视频中心';
     <div class="howie">
         <div class="video">
             <div class="video_one">
-                <video src="/i/movie.ogg" controls="controls">
+                <video src="<?=isset($videos[0])?$videos[0]['url']:''?>" controls="controls">
                     your browser does not support the video tag
                 </video>
             </div>
             <div class="Raw_heel">
                 <ul>
                     <li>
-                        <video src="/i/movie.ogg" controls="controls">
+                        <video src="<?=isset($videos[1])?$videos[1]['url']:''?>" controls="controls">
                             your browser does not support the video tag
                         </video>
                     </li>
                     <li>
-                        <video src="/i/movie.ogg" controls="controls">
+                        <video src="<?=isset($videos[2])?$videos[2]['url']:''?>" controls="controls">
                             your browser does not support the video tag
                         </video>
                     </li>
                 </ul>
                 <ul>
                     <li>
-                        <video src="/i/movie.ogg" controls="controls">
+                        <video src="<?=isset($videos[3])?$videos[3]['url']:''?>" controls="controls">
                             your browser does not support the video tag
                         </video>
                     </li>
                     <li>
-                        <video src="/i/movie.ogg" controls="controls">
+                        <video src="<?=isset($videos[4])?$videos[4]['url']:''?>" controls="controls">
                             your browser does not support the video tag
                         </video>
                     </li>
@@ -54,34 +54,29 @@ $this->title = '视频中心';
         <div class="Meeting">
             <ul>
                 <li>
-                    <video src="/i/movie.ogg" controls="controls">
+                    <video src="<?=isset($videos[5])?$videos[5]['url']:''?>" controls="controls">
                         your browser does not support the video tag
                     </video>
                 </li>
                 <li>
-                    <video src="/i/movie.ogg" controls="controls">
+                    <video src="<?=isset($videos[6])?$videos[6]['url']:''?>" controls="controls">
                         your browser does not support the video tag
                     </video>
                 </li>
                 <li>
-                    <video src="/i/movie.ogg" controls="controls">
+                    <video src="<?=isset($videos[7])?$videos[7]['url']:''?>" controls="controls">
                         your browser does not support the video tag
                     </video>
                 </li>
             </ul>
             <ul>
                 <li>
-                    <video src="/i/movie.ogg" controls="controls">
+                    <video src="<?=isset($videos[8])?$videos[8]['url']:''?>" controls="controls">
                         your browser does not support the video tag
                     </video>
                 </li>
                 <li>
-                    <video src="/i/movie.ogg" controls="controls">
-                        your browser does not support the video tag
-                    </video>
-                </li>
-                <li>
-                    <video src="/i/movie.ogg" controls="controls">
+                    <video src="<?=isset($videos[9])?$videos[9]['url']:''?>" controls="controls">
                         your browser does not support the video tag
                     </video>
                 </li>

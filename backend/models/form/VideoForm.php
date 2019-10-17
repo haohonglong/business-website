@@ -2,6 +2,7 @@
 
 namespace backend\models\form;
 
+use common\helpers\Util;
 use common\models\UploadVideoForm;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -22,6 +23,7 @@ class VideoForm extends \common\models\Video
 {
 
     public  $uploadVideoForm;
+
     /**
      * {@inheritdoc}
      */
@@ -33,19 +35,56 @@ class VideoForm extends \common\models\Video
         ];
     }
 
+    public function upload(UploadVideoForm $uploadVideoForm)
+    {
+        $model = $uploadVideoForm;
+        if($model->upload()){
+
+            $this->url = str_replace(Yii::getAlias('@frontend/web'), '', $model->path);
+            return true;
+        }
+        return false;
+    }
+
+
+
+    private function del($id)
+    {
+        $path = Yii::getAlias('@frontend/web');
+
+        $model = self::findOne($id);
+        $file = $path.$model->url;
+        if(file_exists($file) && is_file($file)){
+            unlink($file);
+        }
+        $model->delete();
+    }
+
+    public function remove($id)
+    {
+        if(is_array($id)){
+            foreach ($id as $i){
+                $this->del($i);
+            }
+        }else{
+            $this->del($id);
+        }
+        Util::rm_empty_dir(Yii::getAlias('@video').'/');
+    }
+
+
+
     /**
      * @return bool
      */
     public function create()
     {
-        $model = $this->uploadVideoForm;
         $time = time();
         $this->uid = Yii::$app->user->identity->id;
         $this->scan = 0;
         $this->created_at = $time;
         $this->updated_at = $time;
-        if($model->upload()){
-            $this->url = $model->path.$model->name;
+        if($this->validate()){
             return $this->save();
         }
         return false;

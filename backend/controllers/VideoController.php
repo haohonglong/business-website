@@ -11,6 +11,10 @@ use backend\actions\IndexAction;
 use backend\actions\DeleteAction;
 use backend\actions\SortAction;
 use backend\actions\ViewAction;
+use yii\web\BadRequestHttpException;
+use yii\web\MethodNotAllowedHttpException;
+use yii\web\Response;
+use yii\web\UnprocessableEntityHttpException;
 use yii\web\UploadedFile;
 use common\models\UploadVideoForm;
 
@@ -50,10 +54,6 @@ class VideoController extends \yii\web\Controller
                 'class' => UpdateAction::className(),
                 'modelClass' => VideoForm::className(),
             ],
-            'delete' => [
-                'class' => DeleteAction::className(),
-                'modelClass' => VideoForm::className(),
-            ],
             'sort' => [
                 'class' => SortAction::className(),
                 'modelClass' => VideoForm::className(),
@@ -68,18 +68,11 @@ class VideoController extends \yii\web\Controller
     public function actionUpdate($id)
     {
         $model = VideoForm::findOne($id);
-        $videoUpload = new UploadVideoForm();
+        $model->uploadVideoForm = new UploadVideoForm();
         if (Yii::$app->getRequest()->getIsPost()) {
-            if ($model->load(Yii::$app->getRequest()->post())) {
-                $videoUpload->url = UploadedFile::getInstance($videoUpload, 'url');
-                if($videoUpload->upload()){
-                    $model->url = $videoUpload->path.$videoUpload->name;
-                    if( $model->create()){
-                        Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Success'));
-                        return $this->redirect('/video/index');
-                    }
-                }
-
+            if ($model->load(Yii::$app->getRequest()->post()) && $model->modify()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Success'));
+                return $this->redirect('/video/index');
             }
             $errorReasons = $model->getErrors();
             $err = '';
@@ -89,18 +82,18 @@ class VideoController extends \yii\web\Controller
             $err = rtrim($err, '<br>');
             Yii::$app->getSession()->setFlash('error', $err);
         }
-        return $this->render('create',[
+        return $this->render('update',[
             'model' => $model,
-            'video' => $videoUpload,
         ]);
 
     }
     public function actionCreate()
     {
+
         $model = new VideoForm();
         $model->uploadVideoForm = new UploadVideoForm();
         if (Yii::$app->getRequest()->getIsPost()) {
-            if ($model->load(Yii::$app->getRequest()->post()) && $model->create()) {
+            if ($model->load(Yii::$app->getRequest()->post()) && $model->upload($model->uploadVideoForm) && $model->create()) {
                 Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Success'));
                 return $this->redirect('/video/index');
             }
@@ -115,5 +108,46 @@ class VideoController extends \yii\web\Controller
         return $this->render('create',[
             'model' => $model,
         ]);
+    }
+
+    public function actionDelete()
+    {
+        if (Yii::$app->getRequest()->getIsPost()) {//只允许post删除
+            $id = Yii::$app->getRequest()->get('id', null);
+            $param = Yii::$app->getRequest()->post('id', null);
+            if($param !== null){
+                $id = $param;
+            }
+
+            if( Yii::$app->getRequest()->getIsAjax() ){
+                Yii::$app->getResponse()->format = Response::FORMAT_JSON;
+            }
+            if (! $id) {
+                throw new BadRequestHttpException(Yii::t('app', "id doesn't exist"));
+            }
+            $ids = explode(',', $id);
+            $errors = [];
+            /* @var $model \yii\db\ActiveRecord */
+            $model = null;
+            (new VideoForm())->remove($ids);
+            if (count($errors) == 0) {
+                if( !Yii::$app->getRequest()->getIsAjax() ) return $this->redirect(Yii::$app->getRequest()->getReferrer());
+                return [];
+            } else {
+                $err = '';
+                foreach ($errors as $one => $model){
+                    $err .= $one . ':';
+                    $errorReasons = $model->getErrors();
+                    foreach ($errorReasons as $errorReason) {
+                        $err .= $errorReason[0] . ';';
+                    }
+                    $err = rtrim($err, ';') . '<br>';
+                }
+                $err = rtrim($err, '<br>');
+                throw new UnprocessableEntityHttpException($err);
+            }
+        } else {
+            throw new MethodNotAllowedHttpException(Yii::t('app', "Delete must be POST http method"));
+        }
     }
 }

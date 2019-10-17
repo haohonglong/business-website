@@ -3,8 +3,10 @@
 
 namespace frontend\controllers;
 
-
+use Yii;
 use frontend\models\NewsModule;
+use yii\db\Query;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 class NewsController extends Controller
@@ -22,7 +24,20 @@ class NewsController extends Controller
     }
     public function actionVideo()
     {
-        return $this->render('video');
+
+
+        $path = Yii::getAlias('@video').'/';
+        $path = strstr($path,'/uploads');
+        $rows = (new \yii\db\Query())
+            ->select('*')
+            ->from('video')
+            ->all();
+        foreach ($rows as $k=>$item){
+            $rows[$k]['url'] = $path.$item['url'];
+        }
+        return $this->render('video',[
+            'videos'=> $rows,
+        ]);
     }
     public function actionGroup()
     {
