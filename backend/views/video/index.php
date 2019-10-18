@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = yii::t('app', 'Video');
                         'id',
                         'uid',
                         'title',
-                        'url:url',
+                        'url',
                         'scan',
                         // 'created_at',
                         // 'updated_at',

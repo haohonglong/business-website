@@ -102,26 +102,7 @@ $identity = Yii::$app->getUser()->getIdentity();
                     <li class="hidden-xs">
                         <a href="javascript:void(0)" onclick="reloadIframe()"><i class="fa fa-refresh"></i> <?= Yii::t('app', 'Refresh') ?></a>
                     </li>
-                    <li class="hidden-xs">
-                        <a href="http://cms.feehi.com/help" class="J_menuItem" data-index="0"><i class="fa fa-cart-arrow-down"></i> <?= Yii::t('app', 'Support') ?></a>
-                    </li>
-                    <li class="dropdown hidden-xs">
-                        <a class="right-sidebar-toggle" aria-expanded="false"><i class="fa fa-tasks"></i> <?= Yii::t('app', 'Theme') ?></a>
-                    </li>
-                    <li class="hidden-xs">
-                        <select onchange="location.href=this.options[this.selectedIndex].value;">
-                            <option
-                                <?php if (Yii::$app->language == 'zh-CN') {
-                                echo 'selected';
-                                } ?> value="<?= Url::to(['site/language', 'lang' => 'zh-CN']) ?>">简体中文
-                            </option>
-                            <option
-                                <?php if (Yii::$app->language == 'en-US') {
-                                    echo "selected";
-                                } ?> value="<?= Url::to(['site/language', 'lang' => 'en-US']) ?>">English
-                            </option>
-                        </select>
-                    </li>
+
                 </ul>
             </nav>
         </div>

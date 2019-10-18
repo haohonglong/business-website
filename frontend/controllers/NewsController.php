@@ -25,16 +25,11 @@ class NewsController extends Controller
     public function actionVideo()
     {
 
-
-        $path = Yii::getAlias('@video').'/';
-        $path = strstr($path,'/uploads');
         $rows = (new \yii\db\Query())
             ->select('*')
             ->from('video')
             ->all();
-        foreach ($rows as $k=>$item){
-            $rows[$k]['url'] = $path.$item['url'];
-        }
+
         return $this->render('video',[
             'videos'=> $rows,
         ]);

@@ -21,7 +21,7 @@ $this->title = '视频中心';
         <div class="video">
             <div class="video_one">
                 <video src="<?=isset($videos[0])?$videos[0]['url']:''?>" controls="controls">
-                    your browser does not support the video tag
+                    <!-- your browser does not support the video tag -->
                 </video>
             </div>
             <div class="Raw_heel">
@@ -52,34 +52,16 @@ $this->title = '视频中心';
             </div>
         </div>
         <div class="Meeting">
-            <ul>
-                <li>
-                    <video src="<?=isset($videos[5])?$videos[5]['url']:''?>" controls="controls">
+            <ul class="imglist">
+                <?php for($i=5,$len = count($videos);$i < $len ;$i++):?>
+                <li style="width: 380px;height: 172px">
+                    <video width="380px" height="172px" src="<?=$videos[$i]['url']?>" controls="controls">
                         your browser does not support the video tag
                     </video>
+                    <span>方巨集团VCR</span>
+
                 </li>
-                <li>
-                    <video src="<?=isset($videos[6])?$videos[6]['url']:''?>" controls="controls">
-                        your browser does not support the video tag
-                    </video>
-                </li>
-                <li>
-                    <video src="<?=isset($videos[7])?$videos[7]['url']:''?>" controls="controls">
-                        your browser does not support the video tag
-                    </video>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <video src="<?=isset($videos[8])?$videos[8]['url']:''?>" controls="controls">
-                        your browser does not support the video tag
-                    </video>
-                </li>
-                <li>
-                    <video src="<?=isset($videos[9])?$videos[9]['url']:''?>" controls="controls">
-                        your browser does not support the video tag
-                    </video>
-                </li>
+                <?php endfor;?>
             </ul>
         </div>
     </div>

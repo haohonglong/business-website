@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Videos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCss("video{width:500px!important}");
 ?>
 <div class="video-view">
 
@@ -20,7 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'uid',
             'title',
-            'url:url',
+            [
+                'attribute' => 'url',
+                'format' => 'raw',
+                'value' => function($model){
+                    return "<video width='20' height='20' class='img-responsive' src='http://fangju.local/{$model->url}' controls='controls'></video>";
+                }
+            ],
             'scan',
             'created_at',
             'updated_at',

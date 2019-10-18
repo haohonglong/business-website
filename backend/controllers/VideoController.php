@@ -11,6 +11,7 @@ use backend\actions\IndexAction;
 use backend\actions\DeleteAction;
 use backend\actions\SortAction;
 use backend\actions\ViewAction;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\Response;
@@ -50,10 +51,6 @@ class VideoController extends \yii\web\Controller
                 }
             ],
 
-            'update' => [
-                'class' => UpdateAction::className(),
-                'modelClass' => VideoForm::className(),
-            ],
             'sort' => [
                 'class' => SortAction::className(),
                 'modelClass' => VideoForm::className(),
@@ -65,28 +62,10 @@ class VideoController extends \yii\web\Controller
         ];
     }
 
-    public function actionUpdate($id)
-    {
-        $model = VideoForm::findOne($id);
-        $model->uploadVideoForm = new UploadVideoForm();
-        if (Yii::$app->getRequest()->getIsPost()) {
-            if ($model->load(Yii::$app->getRequest()->post()) && $model->modify()) {
-                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Success'));
-                return $this->redirect('/video/index');
-            }
-            $errorReasons = $model->getErrors();
-            $err = '';
-            foreach ($errorReasons as $errorReason) {
-                $err .= $errorReason[0] . '<br>';
-            }
-            $err = rtrim($err, '<br>');
-            Yii::$app->getSession()->setFlash('error', $err);
-        }
-        return $this->render('update',[
-            'model' => $model,
-        ]);
-
-    }
+    /**
+     * @auth - item group=设置 category=Videos description-post=测试stmp设置 sort-post=112 method=post
+     * @return string|Response
+     */
     public function actionCreate()
     {
 
