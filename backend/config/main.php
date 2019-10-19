@@ -150,6 +150,7 @@ return [
     'as access' => [
         'class' => backend\components\AccessControl::className(),
         'allowActions' => [
+            'video/index',
             'site/login',
             'site/captcha',
             'site/error',

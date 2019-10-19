@@ -24,46 +24,28 @@ use common\models\UploadVideoForm;
  */
 class VideoController extends \yii\web\Controller
 {
-    /**
-    * @auth
-    * - item group=未分类 category=Videos description-get=列表 sort=000 method=get
-    * - item group=未分类 category=Videos description-get=查看 sort=001 method=get  
-    * - item group=未分类 category=Videos description=创建 sort-get=002 sort-post=003 method=get,post  
-    * - item group=未分类 category=Videos description=修改 sort=004 sort-post=005 method=get,post  
-    * - item group=未分类 category=Videos description-post=删除 sort=006 method=post  
-    * - item group=未分类 category=Videos description-post=排序 sort=007 method=post  
-    * @return array
-    */
-    public function actions()
-    {
-        return [
-            'index' => [
-                'class' => IndexAction::className(),
-                'data' => function(){
-                    
-                        $searchModel = new VideoSearche();
-                        $dataProvider = $searchModel->search(yii::$app->getRequest()->getQueryParams());
-                        return [
-                            'dataProvider' => $dataProvider,
-                            'searchModel' => $searchModel,
-                        ];
-                    
-                }
-            ],
 
-            'sort' => [
-                'class' => SortAction::className(),
-                'modelClass' => VideoForm::className(),
-            ],
-            'view-layer' => [
-                'class' => ViewAction::className(),
-                'modelClass' => VideoForm::className(),
-            ],
-        ];
+
+    /**
+     * @auth - item group=视频中心 category=视频 description=视频列表  method=get,post
+     * @return string
+     */
+    public function actionIndex()
+    {
+        $searchModel = new VideoSearche();
+        $dataProvider = $searchModel->search(yii::$app->getRequest()->getQueryParams());
+
+        return $this->render('index',[
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+
     }
 
+
+
     /**
-     * @auth - item group=设置 category=Videos description-post=测试stmp设置 sort-post=112 method=post
+     * @auth - item group=视频中心 category=视频 description=上传视频  method=get,post
      * @return string|Response
      */
     public function actionCreate()
@@ -89,6 +71,14 @@ class VideoController extends \yii\web\Controller
         ]);
     }
 
+
+    /**
+     * @auth - item group=视频中心 category=视频 description=删除视频  method=get,post
+     * @return array|Response
+     * @throws BadRequestHttpException
+     * @throws MethodNotAllowedHttpException
+     * @throws UnprocessableEntityHttpException
+     */
     public function actionDelete()
     {
         if (Yii::$app->getRequest()->getIsPost()) {//只允许post删除
@@ -127,6 +117,73 @@ class VideoController extends \yii\web\Controller
             }
         } else {
             throw new MethodNotAllowedHttpException(Yii::t('app', "Delete must be POST http method"));
+        }
+    }
+
+    /**
+     * @auth - item group=视频中心 category=视频 description=显示  method=get,post
+     * @param $id
+     * @return string
+     * @throws BadRequestHttpException
+     */
+    public function actionViewLayer($id)
+    {
+        $model = VideoForm::findOne($id);
+        if (! $model) throw new BadRequestHttpException(Yii::t('app', "Cannot find model by $id"));
+        $model->setScenario('default');
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @auth - item group=视频中心 category=视频 description=排序  method=get,post
+     * @return array|Response
+     * @throws UnprocessableEntityHttpException
+     */
+    public function actionSort()
+    {
+        if (Yii::$app->getRequest()->getIsPost()) {
+            $post = Yii::$app->getRequest()->post();
+            if( isset( $post[Yii::$app->getRequest()->csrfParam] ) ) {
+                unset($post[Yii::$app->getRequest()->csrfParam]);
+            }
+            $err = '';
+            foreach ($post as $field => $array) {
+                foreach ($array as $key => $value) {
+                    /* @var $model \yii\db\ActiveRecord */
+
+                    $model =  VideoForm::findOne($key);
+                    $model->setScenario('default');
+                    if ($model->$field != $value) {
+                        $model->$field = $value;
+                        if (!$model->save()) {
+                            if( $err == '' ){
+                                $err .= $key . ' : ';
+                            }else{
+                                $err .= '<br>' . $key . ' : ';
+                            }
+                            foreach ($model->getErrors() as $errorReason) {
+                                $err .= $errorReason[0] . ';';
+                            }
+                        }
+                    }
+                }
+            }
+            $err = rtrim($err, ';');
+            if (Yii::$app->getRequest()->getIsAjax()) {
+                Yii::$app->getResponse()->format = Response::FORMAT_JSON;
+                if( !empty($err) ){
+                    throw new UnprocessableEntityHttpException($err);
+                }else{
+                    return [];
+                }
+            } else {
+                if( !empty($err) ){
+                    Yii::$app->getSession()->setFlash('error', $err);
+                }
+                return $this->goBack();
+            }
         }
     }
 }

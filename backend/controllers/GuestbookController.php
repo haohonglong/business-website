@@ -19,12 +19,10 @@ class GuestbookController extends \yii\web\Controller
 {
     /**
     * @auth
-    * - item group=未分类 category=Guestbooks description-get=列表 sort=000 method=get
-    * - item group=未分类 category=Guestbooks description-get=查看 sort=001 method=get  
-    * - item group=未分类 category=Guestbooks description=创建 sort-get=002 sort-post=003 method=get,post  
-    * - item group=未分类 category=Guestbooks description=修改 sort=004 sort-post=005 method=get,post  
-    * - item group=未分类 category=Guestbooks description-post=删除 sort=006 method=post  
-    * - item group=未分类 category=Guestbooks description-post=排序 sort=007 method=post  
+    * - item group=留言板 category=留言板 description=列表 method=get,post
+    * - item group=留言板 category=留言板 description=删除 method=get,post  
+    * - item group=留言板 category=留言板 description=排序 method=get,post  
+    * - item group=留言板 category=留言板 description=查看 method=get,post
     * @return array
     */
     public function actions()
