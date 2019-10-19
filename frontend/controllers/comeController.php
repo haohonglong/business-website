@@ -3,6 +3,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Article;
 use frontend\models\NewsModule;
 use Yii;
 use yii\web\Controller;
@@ -70,7 +71,27 @@ class ComeController extends Controller
      */
     public function actionCitizen()
     {
-        return $this->render('citizen');
+
+        $article = (new \yii\db\Query())
+            ->select(['id','title', 'summary'])
+            ->from('article')
+            ->where(['id' => '42','status'=>Article::ARTICLE_PUBLISHED])
+            ->limit(1)
+            ->one();
+        $images = (new \yii\db\Query())
+            ->select(['value'])
+            ->from('article_meta')
+            ->where(['aid' => '42'])
+            ->all();
+
+        $arr = [];
+        foreach ($images as $v){
+            $arr[] = $v['value'];
+        }
+        $article['images'] = $arr;
+        return $this->render('citizen',[
+            'list'=>$article,
+        ]);
     }
 
     /**
