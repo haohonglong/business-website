@@ -176,4 +176,14 @@ class Options extends \yii\db\ActiveRecord
         return $ad;
     }
 
+    public static function getInfoByName($name)
+    {
+        return self::find()
+            ->select('value,tips')
+            ->where(['name' => $name])
+            ->limit(1)
+            ->one();
+
+    }
+
 }

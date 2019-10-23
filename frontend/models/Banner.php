@@ -14,16 +14,6 @@ class Banner extends BannerForm
         return parent::getBanners($id, $asArray=false);
 
     }
-    public static function getLogo()
-    {
-        $rows = (new Query())
-            ->select('value,tips')
-            ->from('options')
-            ->where(['id' => 30])
-            ->limit(1)
-            ->one();
-        return $rows;
 
-    }
 
 }

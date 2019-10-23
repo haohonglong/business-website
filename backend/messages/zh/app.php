@@ -370,6 +370,12 @@ return [
     'Upload Image' => '上传图片',
     'Click select image' => '点击选择图片',
     'File cannot be empty' => '文件不能为空',
-    'Only picture allowed' => '仅允许上传图片'
+    'Only picture allowed' => '仅允许上传图片',
     /*webuploader*/
+    'Job Type' => '职能类型',
+    'Job Types' => '职能类型',
+    'Addresses' => '地址',
+    'Address' => '地址',
+    'Jobs Form' => '职位',
+    'Guestbook' => '留言板',
 ];

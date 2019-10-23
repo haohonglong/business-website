@@ -58,6 +58,51 @@ CREATE TABLE `video` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='视频中心';
 
+DROP TABLE IF EXISTS `jobType`;
+CREATE TABLE `jobType` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL UNIQUE KEY COMMENT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='职能类型';
+
+ALTER TABLE jobType MODIFY `name` varchar(255) NOT NULL UNIQUE KEY COMMENT '';
+
+DROP TABLE IF EXISTS `addresses`;
+CREATE TABLE `addresses` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `address` varchar(255) NOT NULL UNIQUE KEY COMMENT '地址',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='工作地址';
+
+
+
+DROP TABLE IF EXISTS `jobs`;
+CREATE TABLE `jobs` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `jobtype_id` int(11) unsigned NOT NULL COMMENT '职能类型',
+  `address_id` int(11) unsigned NOT NULL COMMENT '工作地址',
+  `name` varchar(255) NOT NULL COMMENT '职位名称',
+  `chain` varchar(255)  COMMENT '供应链',
+  `duty` text NOT NULL COMMENT '工作职责',
+  `description` text NOT NULL COMMENT '岗位描述',
+  `created_at` int(11) unsigned NOT NULL COMMENT '创建时间',
+  `updated_at` int(11) unsigned NOT NULL COMMENT '最后修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='职位';
+CREATE INDEX name_index ON jobs (name);
+
+DROP TABLE IF EXISTS `job_applicant`;
+CREATE TABLE `job_applicant` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `job_id` int(11) unsigned COMMENT '职位',
+  `name` varchar(255) NOT NULL COMMENT '',
+  `created_at` int(11) unsigned NOT NULL COMMENT '创建时间',
+  `updated_at` int(11) unsigned NOT NULL COMMENT '最后修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='应聘者';
+
+
+
 
 
 

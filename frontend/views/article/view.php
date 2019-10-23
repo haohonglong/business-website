@@ -38,7 +38,7 @@ $this->registerCssFile("@web/static/css/productdetails.css");
 
 <?= $this->render('@frontend/views/_common/breadcrumbs',[
     'list'=>[
-        ['url'=>Url::to(['come/index']),'name'=>'走进方巨',]
+        ['url'=>Url::to(['come/index']),'name'=>'走进方巨',],
     ],
     'img'=>'/static/img/旗下产品_03.png',
 
@@ -47,6 +47,11 @@ $this->registerCssFile("@web/static/css/productdetails.css");
     <div class="product">
 
         <?= $model->articleContent->content ?>
+    </div>
+    <div style="text-align: center;margin:20px 0">
+
+        <a href="<?= isset($prev->id) ? Url::to(['article/view','id'=>$prev->id]) : '###'?>">上一篇</a>
+        <a href="<?= isset($next->id) ? Url::to(['article/view','id'=>$next->id]) : '###'?>">下一篇</a>
     </div>
     <!--底部-->
 </div>

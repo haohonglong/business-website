@@ -32,7 +32,9 @@ phpunit.phar
 /phpunit.xml
 composer.lock
 backend/tests/acceptance.suite.yml
+backend/runtime/*
 frontend/tests/acceptance.suite.yml
+frontend/runtime/*
 api/tests/acceptance.suite.yml
 apps/*
 common/config/conf

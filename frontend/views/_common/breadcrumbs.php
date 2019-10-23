@@ -15,8 +15,8 @@ $title = isset($title) ? $title : $this->title;
 <!--标题-->
 <div>
     <div class="Title">
-        <div class="Its-products">
-            <h3><?=$title?></h3>
+        <div class="Its-products" style="width: 60%;">
+            <h3 style="text-align: center;"><?=$title?></h3>
         </div>
     </div>
 </div>
@@ -29,7 +29,7 @@ $title = isset($title) ? $title : $this->title;
             <?php if(isset($list)):?>
                 <?php foreach ($list as $item):?>
                     <li>
-                        <a href="#"><?= $item['name'] ?></a>
+                        <a href="<?= $item['url'] ?>"><?= $item['name'] ?></a>
                     </li>
                 <?php endforeach;?>
                 <li>></li>

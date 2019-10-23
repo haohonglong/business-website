@@ -2,7 +2,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use frontend\models\Banner;
+use common\models\Options;
 use yii\helpers\Html;
 use frontend\assets\AppAsset;
 use yii\helpers\Url;
@@ -14,7 +14,9 @@ use yii\web\View;
 AppAsset::register($this);
 $menus = Menu::getFrontMenus();
 $friendlyLink = FriendlyLink::getAll();
-$logo = Banner::getLogo();
+$logo = Options::getInfoByName('logo');
+$wechat = Options::getInfoByName('wechat');
+$weibo = Options::getInfoByName('weibo');
 $js = <<<JS
     (function(){
                 //获取到按钮和对应显示隐藏的标签
@@ -127,7 +129,7 @@ $this->registerJs($js,View::POS_END);
 <div>
     <div class="navigation">
         <div>
-            <img src="<?=$logo['value']?>" alt="<?=$logo['tips']?>">
+            <img src="<?=$logo->value?>" alt="<?=$logo->tips ?>">
         </div>
         <div>
             <ul>
@@ -147,7 +149,6 @@ $this->registerJs($js,View::POS_END);
         <div class="search">
 
             <img src="/static/images/46.gif" alt="">
-
             <img src="/static/images/47.gif" alt="">
 
         </div>
@@ -185,8 +186,8 @@ foreach ($menus as $item):?>
                 </ul>
             </div>
             <div class="WeChat">
-                <img src="/static/images/images/4_03.png" alt="">
-                <img src="/static/images/images/4_05.png" alt="">
+                <a target="_blank" href="<?=$weibo->value?>"><img src="/static/img/4_03.png" alt=""></a>
+                <a target="_blank" href="<?=$wechat->value?>"><img src="/static/img/4_05.png" alt=""></a>
             </div>
             <div class="Navigation-connection">
                 <ul class="Home-Page">

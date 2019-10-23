@@ -99,12 +99,15 @@ class ArticleController extends Controller
             ->orderBy("sort asc,created_at desc,id desc")
             ->limit(1)
             ->one();
+//        ->createCommand()->getRawSql();
         $next = Article::find()
             ->where(['cid' => $model->cid])
             ->andWhere(['<', 'id', $id])
             ->orderBy("sort desc,created_at desc,id asc")
             ->limit(1)
-            ->one();//->createCommand()->getRawSql();
+            ->one();
+//        ->createCommand()->getRawSql();
+
         $commentModel = new Comment();
         $commentList = $commentModel->getCommentByAid($id);
         $recommends = Article::find()
