@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "video".
@@ -35,6 +36,26 @@ class Video extends \yii\db\ActiveRecord
             [['uid', 'scan', 'created_at', 'updated_at'], 'integer'],
             [['title', 'url'], 'string', 'max' => 255],
         ];
+    }
+
+    public static function getVoidoById($id)
+    {
+        $model = self::find()->select('title,url,created_at')->where(['id'=>$id])->limit(1)->one();
+        if($model){
+            $arr = [];
+            $url =Yii::getAlias('@frontend/web').$model->url;
+            $arr['title'] = $model->title;
+            $arr['url'] = $model->url;
+            $arr['time'] = date('Y-m-d H:s:i',$model->created_at);
+            if(file_exists($url)){
+                return $arr;
+            }else{
+                throw new NotFoundHttpException("视频不存在！");
+            }
+
+        }
+        throw new NotFoundHttpException("视频 id '$id' 不存在！");
+
     }
 
     /**

@@ -9,11 +9,10 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\web\Controller;
 use frontend\models\Article;
 use yii\web\NotFoundHttpException;
 
-class PageController extends Controller
+class PageController extends BaseController
 {
 
     /**

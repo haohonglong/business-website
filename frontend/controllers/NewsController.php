@@ -7,9 +7,8 @@ use Yii;
 use frontend\models\NewsModule;
 use yii\db\Query;
 use yii\helpers\Url;
-use yii\web\Controller;
 
-class NewsController extends Controller
+class NewsController extends BaseController
 {
 
     public function actionIndex()
@@ -26,7 +25,7 @@ class NewsController extends Controller
     {
 
         $rows = (new \yii\db\Query())
-            ->select('*')
+            ->select('title,url')
             ->from('video')
             ->all();
 

@@ -32,7 +32,7 @@ SQL;
                 'title'=>$v['title'],
                 'summary'=>$v['summary'],
                 'thumb'=>$v['thumb'],
-                'date'=>date('Y-m-d',$v['updated_at']),
+                'date'=>date('Y-m-d H:s:m',$v['updated_at']),
             ];
         }
 

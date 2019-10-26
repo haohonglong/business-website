@@ -5,9 +5,8 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\GuestbookForm;
-use yii\web\Controller;
 
-class ContactController extends Controller
+class ContactController extends BaseController
 {
     public function actionIndex()
     {

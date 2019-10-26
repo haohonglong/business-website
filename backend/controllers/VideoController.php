@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\Video;
 use Yii;
 use backend\models\search\VideoSearche;
 use backend\models\form\VideoForm;
@@ -67,6 +68,34 @@ class VideoController extends \yii\web\Controller
             Yii::$app->getSession()->setFlash('error', $err);
         }
         return $this->render('create',[
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @auth - item group=视频中心 category=视频 description=视频标题修改  method=get,post
+     * @param $id
+     * @return string|Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionUpdate($id)
+    {
+        $model = VideoForm::find()->where(['id'=>$id])->limit(1)->one();
+        if (Yii::$app->getRequest()->getIsPost()) {
+            if ($model->load(Yii::$app->getRequest()->post()) && $model->update()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Success'));
+                return $this->redirect('/video/index');
+            }
+            $errorReasons = $model->getErrors();
+            $err = '';
+            foreach ($errorReasons as $errorReason) {
+                $err .= $errorReason[0] . '<br>';
+            }
+            $err = rtrim($err, '<br>');
+            Yii::$app->getSession()->setFlash('error', $err);
+        }
+        return $this->render('update',[
             'model' => $model,
         ]);
     }

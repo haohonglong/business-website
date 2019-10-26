@@ -92,12 +92,11 @@ class VideoForm extends \common\models\Video
     }
 
 
-    public function modify()
+    public function update($runValidation = true, $attributeNames = null)
     {
         $time = time();
-        $this->scan = 0;
         $this->updated_at = $time;
-        return $this->save();
+        return parent::update($runValidation, $attributeNames);
 
     }
 

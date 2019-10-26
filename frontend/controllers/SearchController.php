@@ -8,13 +8,12 @@
 
 namespace frontend\controllers;
 
-use common\models\meta\ArticleMetaTag;
 use Yii;
+use common\models\meta\ArticleMetaTag;
 use frontend\models\Article;
-use yii\web\Controller;
 use yii\data\ActiveDataProvider;
 
-class SearchController extends Controller
+class SearchController extends BaseController
 {
 
     /**

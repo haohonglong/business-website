@@ -5,9 +5,8 @@ namespace frontend\controllers;
 
 use frontend\models\Article;
 use Yii;
-use yii\web\Controller;
 
-class ProductionController extends Controller
+class ProductionController extends BaseController
 {
 
 

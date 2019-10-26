@@ -115,6 +115,7 @@ class BannerForm extends \common\models\Options
         }
     }
 
+
    public static function getBanners($id, $asArray=false)
     {
         $model = parent::findOne(['id'=>$id, 'type'=>self::TYPE_BANNER]);

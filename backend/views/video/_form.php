@@ -22,8 +22,9 @@ use backend\widgets\ActiveForm;
                         <div class="hr-line-dashed"></div>
                         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
                         <div class="hr-line-dashed"></div>
-
+                        <?php if(isset($model->uploadVideoForm)): ?>
                         <?= $form->field($model->uploadVideoForm, 'url')->fileInput() ?>
+                        <?php endif; ?>
                         <div class="hr-line-dashed"></div>
 
                         <?= $form->defaultButtons() ?>

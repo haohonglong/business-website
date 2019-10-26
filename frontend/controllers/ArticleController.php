@@ -12,7 +12,6 @@ use Yii;
 use common\libs\Constants;
 use frontend\models\form\ArticlePasswordForm;
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 use frontend\models\Article;
 use common\models\Category;
 use frontend\models\Comment;
@@ -24,7 +23,7 @@ use yii\helpers\Url;
 use yii\web\Response;
 use yii\web\XmlResponseFormatter;
 
-class ArticleController extends Controller
+class ArticleController extends BaseController
 {
 
 

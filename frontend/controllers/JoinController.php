@@ -4,9 +4,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\web\Controller;
 
-class JoinController extends Controller
+class JoinController extends BaseController
 {
     public function actionIndex()
     {

@@ -8,9 +8,11 @@
 
 namespace frontend\models;
 
+use common\models\Category;
 use Yii;
 use common\models\Article as CommonArticle;
 use yii\data\SqlDataProvider;
+use yii\web\NotFoundHttpException;
 
 class Article extends CommonArticle
 {
@@ -65,6 +67,14 @@ class Article extends CommonArticle
         ];
     }
 
+    /**
+     * 文章列表
+     * @param $id
+     * @param $page_n
+     * @param int $rows
+     * @return array
+     * @throws \yii\db\Exception
+     */
     public static function getList($id,$page_n,$rows=10)
     {
 
@@ -103,5 +113,51 @@ class Article extends CommonArticle
             'models'=>$models,
             'total'=>$total,
         ];
+    }
+
+    /**
+     * 由类别名称获取下属的文章内容和图片，先查看类别名称是否存在如果不存在就报错
+     * 此方法用于Banner
+     * @param $name
+     * @return array
+     * @throws NotFoundHttpException
+     * @throws \yii\db\Exception
+     */
+    public static function getContentByName($name)
+    {
+        $category = Category::find()
+            ->select(['id'])
+            ->from('category')
+            ->where(['alias' => $name])
+            ->limit(1)
+            ->one();
+        if(!isset($category->id)){
+            throw new NotFoundHttpException("类别名称 '{$name}' 不存在");
+        }else{
+            $sql = "
+                select a.id,a.title,a.summary,b.value from article as a 
+                left join article_meta as b on b.aid = a.id   
+                where a.cid = :cid and a.status= :status
+            ";
+            $models = Yii::$app->db->createCommand($sql,[
+                ':status'=>Article::ARTICLE_PUBLISHED,
+                ':cid'=>$category->id,
+            ])->queryAll();
+            $arr = [];
+            foreach ($models as $item){
+                if(!isset($arr[$item['id']])){
+                    $arr[$item['id']] = [
+                        'id' => $item['id'],
+                        'title' => $item['title'],
+                        'summary' => $item['summary'],
+                        'images' => [],
+                    ];
+                }
+                $arr[$item['id']]['images'][] = $item['value'];
+
+            }
+            return array_values($arr);
+        }
+
     }
 }

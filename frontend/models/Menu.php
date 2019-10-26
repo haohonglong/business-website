@@ -45,7 +45,8 @@ class Menu extends CommonMenu
     {
 
         $menus = static::_getMenus(1);
-        return self::getTree($menus);
+        $menus = self::getTree($menus);
+        return $menus;
 
     }
 }

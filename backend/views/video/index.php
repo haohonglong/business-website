@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = yii::t('app', 'Video');
                         // 'created_at',
                         // 'updated_at',
 
-                        ['class' => ActionColumn::className(),'template'=>'{view-layer} {delete}'],
+                        ['class' => ActionColumn::className()],
                     ],
                 ]); ?>
 <?php Pjax::end(); ?>            </div>
