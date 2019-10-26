@@ -13,6 +13,15 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'view' => [
+            'theme' => [
+                'basePath' => '@themes_static',
+                'baseUrl' => '@themes/basic',
+                'pathMap' => [
+                    '@views' => '@themes/basic/views',
+                ],
+            ],
+        ],
         'user' => [
             'identityClass' => frontend\models\User::className(),
             'enableAutoLogin' => true,
