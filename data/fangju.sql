@@ -102,14 +102,6 @@ CREATE TABLE `job_applicant` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='应聘者';
 
 
-DROP TABLE IF EXISTS `cities`;
-CREATE TABLE `cities` (
-  `code` int(11) UNIQUE KEY NOT NULL,
-  `name` varchar(255) NOT NULL COMMENT '市县名称',
-  PRIMARY KEY (`code`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='全国城市县名称';
-
-
 
 
 
