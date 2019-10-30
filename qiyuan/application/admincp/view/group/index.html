@@ -1,0 +1,170 @@
+{include file="common/header" /}
+{include file="common/menu" /}
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="javascript:;">管理后台</a></li>
+        <li class="breadcrumb-item"><a href="javascript:;">营销组件</a></li>
+        <li class="breadcrumb-item active">
+            {switch name="act"}
+                {case value="setting"}全局设置{/case}
+                {default /}团购设置
+            {/switch}
+        </li>
+    </ol>
+    <h1 class="page-header">
+        {switch name="act"}
+            {case value="setting"}团购全局设置{/case}
+            {default /}团购订单管理
+        {/switch}
+    </h1>
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="widget-list widget-list-rounded">
+                <!-- begin widget-list-item -->
+                <a href="__ROOT__/admincp/group" class="widget-list-item">
+                    <div class="widget-list-media icon">
+                        <i class="fa fa-th-large bg-grey text-inverse text-white"></i>
+                    </div>
+                    <div class="widget-list-content">
+                        <h4 class="widget-list-title">订单管理</h4>
+                    </div>
+                    <div class="widget-list-action text-nowrap text-grey-darker text-right">
+                        <i class="fa fa-angle-right text-muted t-plus-1 fa-lg m-l-5"></i>
+                    </div>
+                </a>
+                <!-- <a href="__ROOT__/admincp/group/index/act/setting" class="widget-list-item">
+                    <div class="widget-list-media icon">
+                        <i class="fa fa-cogs bg-grey text-inverse text-white"></i>
+                    </div>
+                    <div class="widget-list-content">
+                        <h4 class="widget-list-title">全局设置</h4>
+                    </div>
+                    <div class="widget-list-action text-nowrap text-grey-darker text-right">
+                        <i class="fa fa-angle-right text-muted t-plus-1 fa-lg m-l-5"></i>
+                    </div>
+                </a> -->
+            </div>
+        </div>
+        <!-- begin col-6 -->
+        <div class="col-lg-10">
+            {switch name="act"}
+                {case value="setting"}
+                    <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">全局设置</h4>
+                        </div>
+                        <!-- end panel-heading -->
+                        <!-- begin panel-body -->
+                        <div class="panel-body">
+                            <form action="__ROOT__/admincp/setting/save" method="post">
+                                <div class="form-group row m-b-15">
+                                    <label class="col-form-label col-md-2">是否开启拼团</label>
+                                    <div class="col-md-9">
+                                        <div class="switcher">
+                                            <input type="checkbox" name="openGroup" id="isOpen" value="1" checked>
+                                            <label for="isOpen"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row m-b-15">
+                                    <label class="col-form-label col-md-2">成团人数</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control m-b-5" placeholder="成团人数，设置几个人才能拼团成功" name="joinnum" value=""/>
+                                    </div>
+                                </div>
+                                <div class="form-group row m-b-0">
+                                    <label class="col-md-2 col-sm-2 col-form-label">&nbsp;</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        <button type="submit" class="btn btn-primary">提 交</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {/case}
+                {default /}
+                    <div class="panel panel-inverse" data-sortable-id="table-basic-2">
+                        <div class="panel-heading">
+                            <div class="btn-group btn-group-toggle pull-right">
+                                <a href="__ROOT__/admincp/group?status=0" class="btn btn-white btn-xs {$select[0]}" style="padding: 1px 12px;">
+                                    待付款
+                                </a>
+                                <a href="__ROOT__/admincp/group?status=8" class="btn btn-white btn-xs {$select[1]}" style="padding: 1px 12px;">
+                                    待成团
+                                </a>
+                                <a href="__ROOT__/admincp/group?status=2" class="btn btn-white btn-xs {$select[2]}" style="padding: 1px 12px;">
+                                    已成团
+                                </a>
+                            </div>
+                            <h4 class="panel-title">团购订单列表</h4>
+                        </div>
+                        <!-- end panel-heading -->
+                        <!-- begin panel-body -->
+                        <div class="panel-body" style="padding-bottom: 3px">
+
+                          <!-- begin table-responsive -->
+                          <table id="data-table-default" class="table table-striped table-bordered">
+                            <form action="__ROOT__/admincp/Group" method="post">
+                            <input type="hidden" name="status" value="{$status}">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="data-table-default_filter" class="dataTables_filter">
+                                        <label>
+                                            <input type="text" name="keyword" class="form-control input-sm" placeholder="输入订单号" value="{$keyword}">
+                                        </label>
+                                        <button class="btn btn-primary" style="margin-bottom: 3px;">搜索</button>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                            <thead>
+                                <tr>
+                                    <th>订单号</th>
+                                    <th>购买用户</th>
+                                    <th>状态</th>
+                                    <th>购买数量</th>
+                                    <th>总价</th>
+                                    <th>下单时间</th>
+                                    <th>操作</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {if count($userOrderList) > 0 }
+                                    {foreach $userOrderList as $order}
+                                        <tr>
+                                            <td style="width:36%">
+                                                {$order.sn}
+                                            </td>
+                                            <td>{$order.names}</td>
+                                            <td>{$order.status}</td>
+                                            <td>{$order.totalnum}</td>
+                                            <td>￥{$order.payprice}</td>
+                                            <td>{$order.create_time}</td>
+                                            <td>
+                                                <a href="__ROOT__/admincp/Group/close?id={$order.id}&status={$status}"><div class="btn btn-info btn-sm">关闭</div></a>
+                                            </td>
+                                        </tr>
+                                   {/foreach}
+                                {else}
+                                  <tr>
+                                    <td colspan="8" style="text-align: center;padding:20px">暂无订单</td>
+                                  </tr>
+                               {/if}
+                              </tbody>
+                            </table>
+                            <div style="float: right;">{$page}</div>
+                          <!-- end table-responsive -->
+                        </div>
+                    </div>
+            {/switch}
+        </div>
+    </div>
+</div>
+
+{include file="common/footer" /}
+<script type="text/javascript">
+
+    
+</script>

@@ -1,0 +1,410 @@
+﻿body,
+html{
+	background: #1e2736;
+}
+
+.wrap{
+	height: 100%;
+	font-size: 0;
+	display: none;
+	font-family: "微软雅黑";
+}
+
+#loading{
+	position: absolute;
+	top: 43%;
+	left: 50%;
+	margin-top: -48px;
+	margin-left: -48px;
+}
+#loading > p{
+	width: 100%;
+	font-size: 0.4rem;
+	color: #FFF;
+	padding-top: 0.9rem;
+	text-align: center;
+}
+
+.bg1{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+}
+	.bg1_b3{
+		width: auto;
+		height: 100%;
+		position: absolute;
+
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%,-50%);
+		-webkit-transform:translate(-50%,-50%);
+	}
+	.bg1_b4{
+		width: 100%;
+		height: 100%;
+		background: url(../img/imgBg2.png) no-repeat;
+		background-size: 100% 100%;
+
+		position: absolute;
+		left: 0;
+		right: 0;
+		z-index: 6;
+	}
+
+
+.indexBg{
+	width: 9rem;
+	height: 90%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: absolute;
+	z-index: 7;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform:translate(-50%,-50%);
+}
+	.indexBg_b1{
+		width: 100%;
+	}
+	.indexBg_b2{
+		width: 100%;
+	}
+		.indexBg_02_1{
+			width: 2.5rem;
+			height: auto;
+			position: absolute;
+			left: 1.9rem;
+			top: 0.7rem;
+		}
+		.indexBg_02_2{
+			width: 2.5rem;
+			height: auto;
+			position: absolute;
+			right: 1.9rem;
+    		top: 0.7rem;
+		}
+	.indexBg_b3{
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+
+/* 音乐播放 */
+    #lanren{
+        position: absolute;
+        top: .3rem;
+        right: .3rem;
+        z-index: 1000;
+    }
+    #lanren #audio-btn {
+        width: 0.8rem;
+        height: 0.8rem;
+        background-size: 100% 100%;
+    }
+    #lanren .on{
+      background: url(../img/music_on.png) no-repeat 0 0;
+      -webkit-animation: rotating 1.2s linear infinite;
+      animation: rotating 1.2s linear infinite;
+    }
+    #lanren .off{
+      background: url(../img/music_off.png) no-repeat 0 0;
+    }
+    @-webkit-keyframes rotating {
+      from{
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+          transform: rotate(0deg);
+      }
+      to{
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes rotating {
+        from{
+            -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        to{
+            -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+/* 音乐播放 */
+.decorateImg{
+	width: 7.9rem;
+	height: 100%;
+
+	position: absolute;
+	left: 50%;
+	bottom: 4%;
+	margin-left: -3.95rem;
+}
+.decorateImg img {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 3;
+}
+
+.wrap_div {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: none;
+    position: relative;
+    z-index: 5;
+}
+
+.signUpImg1{
+	width: 7.066667rem;
+	margin: 0 auto;
+	display: block;
+	padding-bottom: 0.9rem;
+}
+.signUpImg2{
+	width: 3.426667rem;
+	margin: 0 auto;
+	display: block;
+	padding-top: 0.8rem;
+	cursor: pointer;
+}
+
+.imgDiv{
+	width: 100%;
+	position: relative;
+}
+
+/**/
+.inputDiv{
+	position: relative;
+	color: #ffc391;
+	font-size: 0.5rem;
+	border: 1px solid #ffc391;
+	height:1.52rem;
+	margin-bottom: -1px;
+
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+}
+	.inputDiv p{
+		width: 2.9rem;
+		height:1.52rem;
+		line-height:1.52rem;
+		text-indent: 0.3rem;
+		border-right: 1px solid #ffc391;
+	}
+	.inputDiv > li{
+		width: calc(100% - 2.9rem - 1px);
+		height:1.52rem;
+		font-size: 0.5rem;
+		color: #ffc391;
+		position: relative;
+		z-index: 999;
+	}
+		.inputDiv input{
+			width: calc(100% - 2.9rem - 1px);
+			height:1.52rem;
+			line-height:1.52rem;
+			font-size: 0.5rem;
+			color: #ffc391;
+			text-indent: 0.3rem;
+		}
+
+.inputDiv2{
+	position: relative;
+	color: #ffc391;
+	font-size: 0.5rem;
+	border: 1px solid #ffc391;
+	height:1.52rem;
+	margin-bottom: -1px;
+
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+	.inputDiv2 p{
+		width: 3.7rem;
+		height:1.52rem;
+		line-height:1.52rem;
+		text-indent: 0.3rem;
+		border-right: 1px solid #ffc391;
+	}
+	.inputDiv2 > li{
+		width: calc(100% - 3.7rem - 1px);
+		height:1.52rem;
+		font-size: 0.5rem;
+		color: #ffc391;
+		position: relative;
+		z-index: 1111;
+	}
+	.inputDiv2 input{
+			width: calc(100% - 3.7rem - 1px);
+			height:1.52rem;
+			line-height:1.52rem;
+			font-size: 0.5rem;
+			color: #ffc391;
+			text-indent: 0.3rem;
+		}
+
+.inputDiv3{
+	position: relative;
+	color: #ffc391;
+	font-size: 0.5rem;
+	border: 1px solid #ffc391;
+	height:1.52rem;
+	margin-bottom: -1px;
+
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+}
+	.inputDiv3 p{
+		width: 1.52rem;
+		height:1.52rem;
+		line-height:1.52rem;
+		text-indent: 0.3rem;
+		border-right: 1px solid #ffc391;
+	}
+	.inputDiv3 > li{
+		width: calc(100% - 1.52rem - 1px);
+		height:1.52rem;
+		font-size: 0.5rem;
+		color: #ffc391;
+		position: relative;
+		z-index: 999;
+		padding: 0 0.3rem;
+		box-sizing: border-box;
+
+		display: flex;
+		display: -webkit-flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+/**/
+.check { 
+    display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.check span, .check label, .check p{ 
+    vertical-align:top; 
+    display: inline-block; 
+}
+/*复选框（多选框）的美化CSS*/
+.check input[type="checkbox"]{ 
+    appearance: none; 
+    -webkit-appearance: none; 
+    outline: none; 
+    display:none; 
+}
+.check label{ 
+    cursor:pointer; 
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.check label input[type="checkbox"] + span{
+    width:0.4rem;
+    height:0.4rem;
+    display:block; 
+    background:url(../img/icon2.png) no-repeat; 
+    background-size: 100% 100%;
+}
+.check label input[type="checkbox"]:checked + span{ 
+    background:url(../img/icon1.png) no-repeat; 
+    background-size: 100% 100%; 
+}
+
+select {
+  	
+	outline:none;      
+	-webkit-tap-highlight-color: #fff;
+	border: none;
+	width: 100%;
+	height: 1.52rem;
+	line-height: 1.52rem;
+	/*防止紧紧靠在边上*/
+	text-indent: 0.4rem;
+	background: none;
+  	color: #ffc391;
+  	font-size: 0.5rem;
+}
+/*清除iIE的默认选择框样式*/
+
+.icon3{
+	width: 0.6rem;
+	position: absolute;
+	right: 0.3rem;
+	top: 50%;
+	margin-top: -0.3rem;
+	cursor: pointer;
+}
+
+.icon4{
+	width: 1.666667rem;
+	margin-left: calc(100% - 1.666667rem);
+	margin-top: 0.4rem;
+	cursor: pointer;
+}
+
+.addDiv > div{
+	margin-bottom: 0.6rem;
+}
+.addDiv > div:last-child{
+	margin-bottom: 0;
+}
+
+.heart {
+    animation:heartbeat 1.5s infinite;
+    -webkit-animation:heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0% {
+	    transform:scale(0.8,0.8);
+	    /*opacity:1;*/
+	}
+	25% {
+	    transform:scale(1,1);
+	    /*opacity:0.8;*/
+	}
+	100% {
+	    transform:scale(0.8,0.8);
+	    /*opacity:1;*/
+	}
+}

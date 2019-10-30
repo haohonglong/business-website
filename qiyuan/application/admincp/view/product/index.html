@@ -1,0 +1,122 @@
+{include file="common/header" /}
+{include file="common/menu" /}
+
+<div id="content" class="content">
+	<!-- begin breadcrumb -->
+	<ol class="breadcrumb pull-right">
+    	<li class="breadcrumb-item"><a href="javascript:;">管理后台</a></li>
+    	<li class="breadcrumb-item active">商品管理</li>
+  	</ol>
+	<h1 class="page-header">商品管理</h1>
+  	<div class="panel panel-inverse" data-sortable-id="table-basic-2">
+        <div class="panel-heading">
+        	<div class="btn-group btn-group-toggle pull-right">
+			    <a href="__ROOT__/admincp/product" class="btn btn-white btn-xs {$select[0]}" style="padding: 1px 12px;">
+			    	全部
+			    </a>
+			    <a href="__ROOT__/admincp/product?status=1" class="btn btn-white btn-xs {$select[1]}" style="padding: 1px 12px;">
+			    	已下架
+			    </a>
+			    <a href="__ROOT__/admincp/product?status=2" class="btn btn-white btn-xs {$select[2]}" style="padding: 1px 12px;">
+			    	拼团
+			    </a>
+			     <a href="__ROOT__/admincp/product?status=3" class="btn btn-white btn-xs {$select[3]}" style="padding: 1px 12px;">
+			    	抽奖
+			    </a>
+			</div>
+        	<h4 class="panel-title">商品列表</h4>
+        </div>
+        <!-- end panel-heading -->
+        <!-- begin panel-body -->
+        <div class="panel-body" style="padding-bottom: 3px">
+          <!-- begin table-responsive -->
+          <table id="data-table-default" class="table table-striped table-bordered">
+          	<div class="row">
+        		<form action="__ROOT__/admincp/product">
+					<div class="col-sm-12">
+						<div id="data-table-default_filter" class="dataTables_filter">
+							<label>
+								<input type="search" name="keyword" class="form-control input-sm" placeholder="输入商品名称" aria-controls="data-table-default">
+							</label>
+							<button class="btn btn-success" style="margin-bottom: 3px;">搜索</button>
+				            <a href="__ROOT__/admincp/product/add?sort=4" class="btn btn-primary" style="margin-bottom: 3px;">添加商品</a>
+				            <!-- <a href="__ROOT__/admincp/product/category?sort=4" class="btn btn-warning" style="margin-bottom: 3px;">设置分类</a> -->
+						</div>
+					</div>
+				</form>
+			</div>	
+            <thead>
+              	<tr>
+	                <th>商品图</th>
+	                <th>标题</th>
+	                <th>分类</th>
+	                <th>价格</th>
+	                <th>库存</th>
+	                <th>销量</th>
+	                <th>发布时间</th>
+	                <th>操作</th>
+              	</tr>
+              </thead>
+              <tbody>
+              	{if count($productList) > 0}
+					{foreach $productList as $product}
+	                <tr id="product{$product.id}">
+		                <td><img src="{$product.cover}" style="width: 80px;height: 80px" /></td>
+		                <td style="width:30%">{$product.title}</td>
+		                <td>{$categoryList[$product['categoryid']]}</td>
+		                <td>￥{$product.price}</td>
+		                <td>{$product.stock}</td>
+		                <td>{$product.salecount}</td>
+		                <td>{$product.create_time}</td>
+		                <td>
+		                	<a href="__ROOT__/admincp/product/edit?id={$product.id}" class="btn btn-primary btn-sm">编辑</a>
+							<div class="btn btn-info btn-sm" onclick="hiddenProduct({$product.id}, {$product.status})">{if $status == 0}下架{else}上架{/if}</div>
+							<div class="btn btn-inverse btn-sm" onclick="viewLink({$product.id},{$product.goodssort})">链接</div>
+						</td>
+	                </tr>
+	                {/foreach}
+				{else}
+	                <tr>
+	                	<td colspan="8" style="text-align: center;padding:20px">暂无商品</td>
+	                </tr>
+	            {/if}
+              </tbody>
+          </table>
+          <div style="float: right;">{$page}</div>
+          <!-- end table-responsive -->
+        </div>
+    </div>
+</div>
+
+{include file="common/footer" /}
+<script type="text/javascript">
+	function hiddenProduct(id, status) {
+        $.ajax({
+            url:'__ROOT__/admincp/product/hiddenProduct',
+            type:'POST',
+            data: {
+                id: id,
+                status: status
+            },  
+            success: function(msg) {
+                if(!msg['error']) {
+                    $('#product' + id).hide();
+                } else {
+                    swal(msg['error'], "", "warning");
+                }
+            }
+        });
+    };
+
+    function viewLink(id,goodssort) {
+
+        
+            swal({
+                title: "小程序页面地址",
+                text: goodssort == 2 ? "pages/goods/drawDetail?gid=" + id : "/pages/goods/detail?gid=" + id,
+                type: "warning",
+                closeOnConfirm: true,
+            });
+      
+    }
+</script>

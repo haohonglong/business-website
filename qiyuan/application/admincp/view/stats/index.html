@@ -1,0 +1,139 @@
+{include file="common/header" /}
+{include file="common/menu" /}
+
+<div id="content" class="content">
+  <!-- begin breadcrumb -->
+  <ol class="breadcrumb pull-right">
+    <li class="breadcrumb-item"><a href="javascript:;">管理后台</a></li>
+    <li class="breadcrumb-item active">数据统计</li>
+  </ol>
+  <!-- end breadcrumb -->
+  <!-- begin page-header -->
+  <h1 class="page-header">数据统计</h1>
+  <!-- end page-header -->
+  
+  <!-- Page Content Here -->  
+  <div class="row">
+    <!-- begin col-3 -->
+    <div class="col-lg-3 col-md-6">
+      <div class="widget widget-stats bg-blue-grey">
+        <div class="stats-icon stats-icon-lg"><i class="fa fa-user fa-fw"></i></div>
+        <div class="stats-content">
+          <div class="stats-title">昨日新增用户</div>
+            <div class="stats-number">7,842,900</div>
+            <div class="stats-desc">环比前一日增长 (70.1%)</div>
+          </div>
+      </div>
+    </div>
+    <!-- end col-3 -->
+    <!-- begin col-3 -->
+    <div class="col-lg-3 col-md-6">
+      <div class="widget widget-stats bg-blue">
+        <div class="stats-icon stats-icon-lg"><i class="fa fa-chart-bar fa-fw"></i></div>
+        <div class="stats-content">
+          <div class="stats-title">昨日访问量</div>
+          <div class="stats-number">180,200</div>
+          <div class="stats-desc">环比前一日增长 (40.5%)</div>
+        </div>
+      </div>
+    </div>
+    <!-- end col-3 -->
+    <!-- begin col-3 -->
+    <div class="col-lg-3 col-md-6">
+      <div class="widget widget-stats bg-cyan">
+        <div class="stats-icon stats-icon-lg"><i class="fa fa-chart-pie fa-fw"></i></div>
+        <div class="stats-content">
+          <div class="stats-title">昨日订单数</div>
+          <div class="stats-number">38,900</div>
+          <div class="stats-desc">环比前一日增长 (76.3%)</div>
+        </div>
+      </div>
+    </div>
+    <!-- end col-3 -->
+    <!-- begin col-3 -->
+    <div class="col-lg-3 col-md-6">
+      <div class="widget widget-stats bg-deep-purple">
+      <div class="stats-icon stats-icon-lg"><i class="fa fa-dollar-sign fa-fw"></i></div>
+        <div class="stats-content">
+          <div class="stats-title">昨日交易额（元）</div>
+          <div class="stats-number">3,988</div>
+          <div class="stats-desc">环比前一日增长 (54.9%)</div>
+        </div>
+      </div>
+    </div>
+    <!-- end col-3 -->
+  </div>
+  <div class="row">
+    <!-- begin col-8 -->
+    <div class="col-lg-8">
+      <div class="widget-chart with-sidebar">
+        <div class="widget-chart-content bg-black">
+          <h4 class="chart-title">最近七天访问趋势</h4>
+          <div id="visitors-line-chart" class="widget-chart-full-width nvd3-inverse-mode" style="height: 260px;"></div>
+        </div>
+        <div class="widget-chart-sidebar bg-black-darker" style="font-weight: bold;">
+          <div class="chart-number">1,225,729<small>昨日总访问数</small></div>
+          <div id="visitors-donut-chart" class="nvd3-inverse-mode p-t-10" style="height: 180px"></div>
+            <ul class="chart-legend f-s-11">
+              <li><i class="fa fa-circle fa-fw text-primary f-s-9 m-r-5 t-minus-1"></i> 34.0% <span>新增用户</span></li>
+              <li><i class="fa fa-circle fa-fw text-success f-s-9 m-r-5 t-minus-1"></i> 56.0% <span>活跃用户</span></li>
+            </ul>
+        </div>
+      </div>  
+    </div>
+    <!-- end col-8 -->
+    <!-- begin col-4 -->
+    <div class="col-lg-4">
+      <div class="panel panel-inverse" data-sortable-id="index-6">
+        <div class="panel-heading">
+          <h4 class="panel-title">用户来源TOP5</h4>
+        </div>
+        <div class="panel-body p-t-0" style="padding-bottom: 3px">
+          <div class="table-responsive">
+            <table class="table table-valign-middle">
+              <thead>
+                <tr>  
+                  <th>项目</th>
+                  <th>昨日数据</th>
+                  <th>趋势</th>
+                </tr>
+              </thead>
+              <tbody style="font-weight: bold;">
+                <tr>
+                  <td><label class="label label-danger">公众号文章</label></td>
+                  <td>13,203 <span class="text-success"><i class="fa fa-arrow-up"></i></span></td>
+                  <td><div id="sparkline-unique-visitor"></div></td>
+                </tr>
+                <tr>
+                  <td><label class="label label-warning">公众号菜单</label></td>
+                  <td>28.2%</td>
+                  <td><div id="sparkline-bounce-rate"></div></td>
+                </tr>
+                <tr>
+                  <td><label class="label label-success">分享卡片</label></td>
+                  <td>1,230,030</td>
+                  <td><div id="sparkline-total-page-views"></div></td>
+                </tr>
+                <tr>
+                  <td><label class="label label-primary">小程序码扫码</label></td>
+                  <td>00:03:45</td>
+                  <td><div id="sparkline-avg-time-on-site"></div></td>
+                </tr>
+                <tr>
+                  <td><label class="label label-default">小程序任务栏</label></td>
+                  <td>00:03:45</td>
+                  <td><div id="sparkline-avg-time-on-site"></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end col-4 -->
+  </div>
+  <!-- end row -->
+  <!-- begin row -->
+</div>
+
+{include file="common/footer" /}

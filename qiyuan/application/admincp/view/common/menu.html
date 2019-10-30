@@ -1,0 +1,127 @@
+<div id="page-container" class="page-container {if $type=='WX'}page-without-sidebar{/if} page-sidebar-fixed page-header-fixed">
+  <div id="header" class="header navbar-default" style="background:#1E90FF; color:#FF0000">
+    <!-- begin navbar-header -->
+    <div class="navbar-header">
+      <a href="__ROOT__/admincp/index" class="navbar-brand" >
+        <font color="#F8F8FF">信息搜集管理平台{$appInfo.name ? '-'.$appInfo.name : ''}</font>
+      </a>
+    </div>
+    <!-- end navbar-header -->
+    
+    <!-- begin header-nav -->
+    <ul class="navbar-nav navbar-right">
+      <li class="navbar-user">
+        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+          <span class="d-none d-md-inline" ><font color="#F8F8FF">你好，{$userInfo.username}</font></span>
+          <!-- <img src="{$userInfo.avatar}" alt="" />  -->
+        </a>
+      </li>
+      <li>
+        <a href="__ROOT__/admincp/logout" class="icon">
+          <font color="#F8F8FF"> <i class="fas fa-power-off fa-fw"></i></font>
+        </a>
+      </li>
+    </ul>
+  </div>
+  {if $type == 'MP'}
+  <div id="sidebar" class="sidebar" data-disable-slide-animation="true" style="background:#191970; color:#FF0000;width: 180px">
+    <!-- begin sidebar scrollbar -->
+    <div data-scrollbar="true" data-height="100%">
+      <!-- begin sidebar nav -->
+      <ul class="nav" style="background:#191970;color:#FF0000;">
+        <li class="nav-header"></li>
+        <li class="{$Request.controller == 'Index' ? 'active' : 'has-sub'}"  >
+          <a href="__ROOT__/admincp/index">
+            <i class="fas fa-home fa-fw"></i>
+            <span>后台首页</span>
+          </a>
+        </li>
+      </ul>
+      <!-- <ul class="nav">
+        <li class="{$Request.controller == 'User' ? 'active' : 'has-sub'}">
+          <a href="__ROOT__/admincp/user">
+            <i class="fas fa-user fa-fw"></i>
+            <span>人员管理</span>
+          </a>
+        </li>
+      </ul> -->
+    
+      <!-- <ul class="nav">
+        <li class="{$Request.controller == 'Product' ? 'active' : 'has-sub'}">
+          <a href="__ROOT__/admincp/product">
+            <i class="fas fa-shopping-cart fa-fw"></i>
+            <span>商品管理</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav">
+        <li class="{$Request.controller == 'Order' ? 'active' : 'has-sub'}">
+          <a href="__ROOT__/admincp/order">
+            <i class="fas fa-th-large fa-fw"></i>
+            <span>订单管理</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav">
+        <li class="{in name="Request.controller" value="$PluginName"}active{else/}has-sub{/in}">
+          <a href="__ROOT__/admincp/plugin">
+              <i class="fas fa-gift fa-fw"></i>
+              <span>营销组件</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav">
+        <li class="{$Request.controller == 'Resource' ? 'active' : 'has-sub'}">
+          <a href="__ROOT__/admincp/resource/index">
+            <i class="fas fa-file fa-fw"></i>
+            <span>文章设置</span>
+          </a>
+        </li>
+      </ul> -->
+      <!-- <ul class="nav">
+        <li class="{$Request.controller == 'Resource' ? 'active' : 'has-sub'}">
+          <a href="__ROOT__/admincp/resource/edit?id=2">
+            <i class="fas fa-file fa-fw"></i>
+            <span>关于我们</span>
+          </a>
+        </li>
+      </ul> -->
+      <!--
+      <ul class="nav">
+        <li class="{$Request.controller == 'Stats' ? 'active' : 'has-sub'}">
+          <a href="__ROOT__/admincp/stats">
+              <i class="fas fa-chart-bar fa-fw"></i>
+              <span>数据统计</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav">
+        <li class="{$Request.controller == 'Material' ? 'active' : 'has-sub'}">
+          <a href="__ROOT__/admincp/material">
+              <i class="fas fa-image fa-fw"></i>
+              <span>素材管理</span>
+          </a>
+        </li>
+      </ul> -->
+      <!-- <ul class="nav">
+        <li class="{$Request.controller == 'Setting' ? 'active' : 'has-sub'}">
+          <a href="__ROOT__/admincp/setting">
+              <i class="fas fa-cog fa-fw"></i>
+              <span>系统设置</span>
+          </a>
+        </li>
+      </ul> -->
+      {if $openId}
+        <ul class="nav">
+          <li class="">
+            <a href="__ROOT__/admincp/index/returnlist">
+                <i class="fas fa-list fa-fw"></i>
+                <span>返回列表</span>
+            </a>
+          </li>
+        </ul>
+      {/if}
+    </div>
+  </div>
+  <div class="sidebar-bg" style="width: 180px"></div>
+  {/if}

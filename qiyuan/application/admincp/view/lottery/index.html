@@ -1,0 +1,298 @@
+{include file="common/header" /}
+{include file="common/menu" /}
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="javascript:;">管理后台</a></li>
+        <!--<li class="breadcrumb-item"><a href="javascript:;">营销组件</a></li>-->
+        <li class="breadcrumb-item active">
+            {switch name="act"}
+            {case value="setting"}全局设置{/case}
+            {case value="order"}订单管理{/case}
+            {default /}活动列表
+            {/switch}
+        </li>
+    </ol>
+    <h1 class="page-header">
+        {switch name="act"}
+        {case value="setting"}抽奖全局设置{/case}
+        {case value="order"}抽奖订单管理{/case}
+        {default /}抽奖活动列表
+        {/switch}
+    </h1>
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="widget-list widget-list-rounded">
+                <!-- begin widget-list-item -->
+                <a href="__ROOT__/admincp/lottery" class="widget-list-item">
+                    <div class="widget-list-media icon">
+                        <i class="fa fa-list bg-grey text-inverse text-white"></i>
+                    </div>
+                    <div class="widget-list-content">
+                        <h4 class="widget-list-title">活动列表</h4>
+                    </div>
+                    <div class="widget-list-action text-nowrap text-grey-darker text-right">
+                        <i class="fa fa-angle-right text-muted t-plus-1 fa-lg m-l-5"></i>
+                    </div>
+                </a>
+                <a href="__ROOT__/admincp/lottery/order" class="widget-list-item">
+                    <div class="widget-list-media icon">
+                        <i class="fa fa-th-large bg-grey text-inverse text-white"></i>
+                    </div>
+                    <div class="widget-list-content">
+                        <h4 class="widget-list-title">订单管理</h4>
+                    </div>
+                    <div class="widget-list-action text-nowrap text-grey-darker text-right">
+                        <i class="fa fa-angle-right text-muted t-plus-1 fa-lg m-l-5"></i>
+                    </div>
+                </a>
+                <!-- <a href="__ROOT__/admincp/lottery/setting" class="widget-list-item">
+                    <div class="widget-list-media icon">
+                        <i class="fa fa-cogs bg-grey text-inverse text-white"></i>
+                    </div>
+                    <div class="widget-list-content">
+                        <h4 class="widget-list-title">全局设置</h4>
+                    </div>
+                    <div class="widget-list-action text-nowrap text-grey-darker text-right">
+                        <i class="fa fa-angle-right text-muted t-plus-1 fa-lg m-l-5"></i>
+                    </div>
+                </a> -->
+            </div>
+        </div>
+        <!-- begin col-6 -->
+        <div class="col-lg-10">
+            {switch name="act"}
+            {case value="setting"}
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <h4 class="panel-title">全局设置</h4>
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+                <div class="panel-body">
+                    <form action="__ROOT__/admincp/setting/save" method="post">
+                        <div class="form-group row m-b-15">
+                            <label class="col-form-label col-md-2">是否开启抽奖</label>
+                            <div class="col-md-9">
+                                <div class="switcher">
+                                    <input type="checkbox" name="openLottery" id="isOpen" value="1" checked>
+                                    <label for="isOpen"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-form-label col-md-2">助力人数</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control m-b-5" placeholder="助力人数，设置几个人助力才能参与抽奖" name="joinnum" value=""/>
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-0">
+                            <label class="col-md-2 col-sm-2 col-form-label">&nbsp;</label>
+                            <div class="col-md-9 col-sm-8">
+                                <button type="submit" class="btn btn-primary">提 交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {/case}
+            {case value="order"}
+            <div class="panel panel-inverse" data-sortable-id="table-basic-2">
+                <div class="panel-heading">
+                    <div class="btn-group btn-group-toggle pull-right">
+                        <a href="__ROOT__/admincp/lottery/order?status=1" class="btn btn-white btn-xs {$select[0]}" style="padding: 1px 12px;">
+                            待发货
+                        </a>
+                        <a href="__ROOT__/admincp/lottery/order?status=2" class="btn btn-white btn-xs {$select[1]}" style="padding: 1px 12px;">
+                            已发货
+                        </a>
+                    </div>
+                    <h4 class="panel-title">抽奖订单列表</h4>
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+                <div class="panel-body" style="padding-bottom: 3px">
+
+                    <!-- begin table-responsive -->
+                    <table id="data-table-default" class="table table-striped table-bordered">
+                        <form action="__ROOT__/admincp/Lottery/order" method="post">
+                            <input type="hidden" name="status" value="{$status}">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="data-table-default_filter" class="dataTables_filter">
+                                        <label>
+                                            <input type="text" name="keyword" class="form-control input-sm" placeholder="输入订单号" value="{$keyword}">
+                                        </label>
+                                        <button class="btn btn-primary" style="margin-bottom: 3px;">搜索</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th>购买用户</th>
+                            <th>状态</th>
+                            <th>购买数量</th>
+                            <th>总价</th>
+                            <th>下单时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {if count($orderList) > 0 }
+                        {foreach $orderList as $order}
+                        <tr>
+                            <td style="width:36%">
+                                {$order.sn}
+                            </td>
+                            <td>{$order.names}</td>
+                            <td>{$order.status}</td>
+                            <td>{$order.goodsnum}</td>
+                            <td>￥{$order.payprice}</td>
+                            <td>{$order.create_time}</td>
+                            <td>
+                                <a href="__ROOT__/admincp/Lottery/close?id={$order.id}"><div class="btn btn-info btn-sm">关闭</div></a>
+                            </td>
+                        </tr>
+                        {/foreach}
+                        {else}
+                        <tr>
+                            <td colspan="8" style="text-align: center;padding:20px">暂无订单</td>
+                        </tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                    <div style="float: right;">{$page}</div>
+                    <!-- end table-responsive -->
+                </div>
+            </div>
+            {/case}
+            {default /}
+            <div class="panel panel-inverse" data-sortable-id="table-basic-2">
+                <div class="panel-heading">
+                    <div class="btn-group btn-group-toggle pull-right">
+                        <a href="__ROOT__/admincp/lottery?status=0" class="btn btn-white btn-xs {$select[0]}" style="padding: 1px 12px;">
+                            待开奖
+                        </a>
+                        <a href="__ROOT__/admincp/lottery?status=1" class="btn btn-white btn-xs {$select[1]}" style="padding: 1px 12px;">
+                            已开奖
+                        </a>
+                    </div>
+                    <h4 class="panel-title">抽奖活动列表</h4>
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+                <div class="panel-body" style="padding-bottom: 3px">
+
+                    <!-- begin table-responsive -->
+                    <table id="data-table-default" class="table table-striped table-bordered">
+                        <form action="__ROOT__/admincp/Lottery" method="post">
+                            <input type="hidden" name="status" value="{$status}">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="data-table-default_filter" class="dataTables_filter">
+                                        <label>
+                                            <select class="form-control" style="min-width: 200px;" id="product">
+                                                <option value=0>请选择参与抽奖商品</option>
+                                                {foreach $plist as $product}
+                                                <option value="{$product.id}" {if condition="$product['id'] eq $rid"} selected ="selected "{/if}>{$product.title}</option>
+                                                {/foreach}
+                                            </select>
+                                        </label>
+                                        <a href="javascript:void(0);" id="openProduct"><div class="btn btn-info btn-sm">开奖</div></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <thead>
+                        <tr>
+                            <th>发起用户</th>
+                            <th>标题</th>
+                            <th>状态</th>
+                            <th>中奖状态</th>
+                            <th>参与时间</th>
+                           <!-- <th>操作</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {if count($list) > 0 }
+                        {foreach $list as $order}
+                        <tr>
+                            <td>{$order.user['username']}</td>
+                            <td>{$order.resource['title']}</td>
+                            <td>{$order.status}</td>
+                            <td>{$order.isprize}</td>
+                            <td>{$order.create_time}</td>
+                           <!-- <td>
+                               &lt;!&ndash; <a href="__ROOT__/admincp/Lottery/openProduct?id={$order['id']}"><div class="btn btn-info btn-sm">开奖</div></a>&ndash;&gt;
+                                <a href="__ROOT__/admincp/Lottery/closeLottery?id={$order['id']}&rid={$rid}"> <div class="btn btn-info btn-sm">关闭</div></a>
+                            </td>-->
+                        </tr>
+                        {/foreach}
+                        {else}
+                        <tr>
+                            <td colspan="8" style="text-align: center;padding:20px">暂无订单</td>
+                        </tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                    <div style="float: right;">{$page}</div>
+                    <!-- end table-responsive -->
+                </div>
+            </div>
+            {/switch}
+        </div>
+    </div>
+</div>
+
+{include file="common/footer" /}
+<script type="text/javascript">
+
+    function reload() {
+        window.location.reload();
+    }
+    $('#openProduct').click(function(){
+
+  
+        var product = $('#product').val();
+        if (product == 0) {
+            swal({ 
+                title: '请选择要开奖的商品', 
+                // text: "2秒后自动关闭。", 
+                timer: 2000, 
+                showConfirmButton: false 
+                }); 
+                return false;
+        }
+
+        $.post("__ROOT__/admincp/Lottery/openProduct", {id:product}, function(res){
+            
+                swal({ 
+                title: res.msg, 
+                // text: "2秒后自动关闭。", 
+                timer: 2000, 
+                showConfirmButton: false 
+                }); 
+            
+        })
+        
+        window.setTimeout(reload,5000);
+        
+    })
+
+    $("#product").change(function(){
+        //alert($(this).children('option:selected').val());
+        var p1=$(this).children('option:selected').val();//这就是selected的值
+        // var p2=$('#param2').val();//获取本页面其他标签的值
+        window.location.href = "__ROOT__/admincp/Lottery?id="+p1;
+    })
+
+
+    /*function list(id) {
+        alert(id);
+        window.location.href = "__ROOT__/admincp/Lottery?id="+id;
+
+    }*/
+</script>

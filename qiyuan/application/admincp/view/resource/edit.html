@@ -1,0 +1,210 @@
+{include file="common/header" /}
+{include file="common/menu" /}
+{css href="__ROOT__/public/assets/plugins/dropzone/min/dropzone.min.css" rel="stylesheet" /}
+
+<div id="content" class="content">
+	<!-- begin breadcrumb -->
+	<ol class="breadcrumb pull-right">
+    	<li class="breadcrumb-item"><a href="javascript:;">管理后台</a></li>
+    	<li class="breadcrumb-item">文章管理</li>
+      <li class="breadcrumb-item active">{$title}</li>
+  	</ol>
+	<h1 class="page-header">{$title}</h1>
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="panel panel-inverse" data-sortable-id="form-stuff-1">
+		        <!-- begin panel-heading -->
+		        <div class="panel-heading ui-sortable-handle">
+		            <h4 class="panel-title">编辑{$sortName}内容</h4>
+		        </div>
+		        <div class="panel-body">
+			        <form action="__ROOT__/admincp/resource/editResource" method="post">
+			        	<!-- <input type="hidden" name="cover" id="resourceCover" value="{$resource.cover}"> -->
+			        	<input type="hidden" name="id" value="{$id}">
+			        	<input type="hidden" name="sort" value="{$sort}">
+						<!-- <div class="form-group row m-b-15">
+							<label class="col-form-label col-md-2">{$sortName}标题</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control m-b-5" placeholder="文章标题" name="title" id="title" value="{$resource.title}"> 
+							</div>
+						</div>
+						<div class="form-group row m-b-15">
+							<label class="col-form-label col-md-2">
+								{$sortName}摘要<br />
+								<small class="f-s-12 text-grey-darker">建议100个字左右</small>
+							</label>
+								<div class="col-md-6">
+								<textarea name="summary" class="form-control">{$resourceCommnet.summary}</textarea>
+							</div>
+						</div> -->
+						{if $sort == 2}
+							<div class="form-group row m-b-15">
+								<label class="col-form-label col-md-2">视频链接</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control m-b-5" placeholder="视频链接" name="url" value="{$resource.url}">
+								</div>
+							</div>
+						{/if}
+						<!-- <div class="form-group row m-b-15">
+							<label class="col-form-label col-md-2">图片模式</label>
+							<div class="col-md-6">
+								<div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="picMode" id="bigPicMode" value="1" {$resource.picmode == 1 ? 'checked' : ''} onclick="selectPicMode('big')">
+                                    <label class="form-check-label" for="bigPicMode">大图模式</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="picMode" id="smallPicMode" value="2" {$resource.picmode == 2 ? 'checked' : ''} onclick="selectPicMode('small')">
+                                    <label class="form-check-label" for="smallPicMode">小图模式</label>
+                                </div>
+							</div>
+						</div> -->
+						<!-- <div class="form-group row m-b-15">
+							<label class="col-form-label col-md-2">
+								封面图片<br />
+								<small class="f-s-14 m-t-16 text-grey-darker">建议尺寸375*210</small>
+							</label>
+							<div class="col-md-6">
+								<div class="dropzone" id="myDropzone" style="padding:5px;height: 225px;">
+					              <div class="am-text-success dz-message" style="margin: 0px;">
+					                <img src="{$resource.cover}" alt="" style="width: {$resource.picmode == 1 ? '375' : '210'}px;height: 210px;" id="resourceCoverShow"/>
+		                          	<div id="uploadTips" style="padding-top:80px;font-size: 20px;">将文件拖拽到此处或点此上传文件</div>
+					              </div>
+					            </div>
+					            
+							</div>
+						</div> -->
+						<!-- <div class="form-group row m-b-15">
+							<label class="col-form-label col-md-2">分类</label>
+							<div class="col-md-6">
+								<select class="form-control" name="categoryid">
+									<option value="0" {if $resource['categoryid'] == 0}selected="selected"{/if}>无分类</option>
+									{volist name="categoryList" id="name"}
+										<option value="{$key}" {if $key == $resource['categoryid']}selected="selected"{/if}>{$name}</option>
+									{/volist}
+								</select>
+							</div>
+						</div> -->
+						<!-- {if $resourceCommnet.url}
+							<div class="form-group row m-b-15">
+								<label class="col-form-label col-md-2">文章外链</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control m-b-5" placeholder="文章外链" name="url" value="{$resourceCommnet.url}"> 
+								</div>
+							</div>
+						{else} -->
+							<div class="form-group row m-b-15">
+								<label class="col-form-label col-md-2">
+									{$sortName}内容
+								</label>
+								<div class="col-md-9">
+									<textarea name="message" id="editor">{$resourceCommnet.message}</textarea>
+								</div>
+							</div>
+						<!-- {/if} -->
+						<!-- <div class="form-group row m-b-15">
+							<label class="col-form-label col-md-2">是否置顶</label>
+							<div class="col-md-3">
+								<div class="switcher">
+								  	<input type="checkbox" name="istop" id="switcher_checkbox_1" {if $resource['istop'] == 1}checked=""{/if} value="1">
+		  							<label for="switcher_checkbox_1"></label>
+								</div>
+							</div>
+						</div> -->
+						<div class="form-group row m-b-10">
+							<label class="col-form-label col-md-2"></label>
+				            <div class="col-md-3 p-t-3">
+								<button type="submit" class="btn btn-primary" style="margin-bottom: 10px;">提交</button>
+							</div>
+						</div>
+					</form>
+		        </div>
+		    </div>
+		</div>
+		<!-- <div class="col-lg-4">
+			<div class="panel panel-inverse" data-sortable-id="form-stuff-1">
+		        <div class="panel-heading ui-sortable-handle">
+		            <h4 class="panel-title">预览内容</h4>
+		        </div>
+		        <div class="panel-body">
+			       <div style="width: 355px;margin:auto;">
+			       	<span id="showTitle" style="font-size: 28px;color: #404040;font-weight: 700;text-align:justify;">{$resource.title}</span>
+			       	<div class="m-t-5">
+				       	<span id="showDate" style="font-size: 13px;">2018年6月24日</span>
+				       	<span id="showAuthor" style="font-size: 13px;"></span>
+			       	</div>
+			       	<div class="m-t-10" style="font-size: 16px;text-align:justify;line-height: 28px;" id="showContent">
+				       	{$resourceCommnet.message}
+			       	</div>
+			       </div>
+		        </div>
+		    </div> -->
+		</div>
+	</div>
+  </div>
+</div>
+<div id="uploadPreview" style="display: none;">
+  <img src="" alt="" style="width: 375px;height: 210px;" id="resourceCoverShow"/>
+</div>
+{include file="common/footer" /}
+
+{js href="__ROOT__/public/assets/plugins/ckeditor/ckeditor.js" /}
+
+<script type="text/javascript">
+	$('#uploadTips').hide();
+
+	function selectPicMode(mode) {
+    	var text = mode == 'big' ? '375*210' : '210*210';
+    	var width = mode == 'big' ? '375' : '210';
+    	var height = '210';
+
+    	$("#picSize").html(text);
+    	$("#resourceCoverShow").css("width", width);
+    	$("#resourceCoverShow").css("height", height);
+    }
+
+	var editor = CKEDITOR.replace( 'editor', {
+        height: 350,
+        extraPlugins: 'simage',//to enable to plugin
+ 		imageUploadURL: '__ROOT__/admincp/Ajax/upload',
+        dataParser: function(data){
+		 	if (data){
+		 		return data.url
+		 	}
+		}
+    });
+
+    editor.on('change', function( event ) { 
+	    var data = this.getData();//内容
+	    $("#showContent").html(data);
+	});
+
+	Dropzone.autoDiscover = false;
+	  	var myDropzone = new Dropzone("#myDropzone", {
+	    url: "__ROOT__/admincp/Ajax/upload",
+	    addRemoveLinks: true,
+	    method: 'post',
+	    filesizeBase: 1024,
+	    maxFiles:1,
+	    maxFilesize: 1,
+	    acceptedFiles: ".jpg,.gif,.png",
+	    dictMaxFilesExceeded: "一次最多只能上传10个文件！",
+	    dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.gif,*.png。",
+	    dictFileTooBig: '文件太大了，图片文件大小不能超过1MB',
+	    dictRemoveFile: '删除素材',
+	    previewsContainer: '#uploadPreview',
+	    sending: function(file, xhr, formData) {
+	      formData.append('fileInfo', file);
+	    },
+	    success: function (file, response, e) {
+	      	$("#resourceCover").attr("value",response['url']);
+      		$("#resourceCoverShow").attr("src",response['url']);
+	    }
+	  });
+
+	$("#title").bind("input propertychange change",function(event){
+       var title = $("#title").val();
+
+       $("#showTitle").html(title)
+	});
+	
+</script>

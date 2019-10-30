@@ -1,0 +1,692 @@
+{include file="common/header" /}
+{include file="common/menu" /}
+
+<div id="content" class="content">
+	<!-- begin breadcrumb -->
+	<ol class="breadcrumb pull-right">
+    	<li class="breadcrumb-item"><a href="javascript:;">管理后台</a></li>
+    	<li class="breadcrumb-item">资讯管理</li>
+      <li class="breadcrumb-item active">{$title}</li>
+  	</ol>
+	<h1 class="page-header">{$title}</h1>
+
+	<form name="a" action="__ROOT__/admincp/product/editproduct" method="post" onsubmit="return validate()">
+		<input type="hidden" name="id" value="{$id}">
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="panel panel-inverse" data-sortable-id="form-stuff-1">
+			        <!-- begin panel-heading -->
+			        <div class="panel-heading ui-sortable-handle">
+			            <h4 class="panel-title">基本信息</h4>
+			        </div>
+			        <div class="panel-body">
+						<div class="form-group row m-b-15">
+							<label class="col-form-label col-md-2">商品名称</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control m-b-5" placeholder="商品名称" name="title" value="{$product.title}">
+							</div>
+						</div>
+						<div class="form-group row m-b-15">
+							<label class="col-form-label col-md-2">
+								商品封面图片<br /><br />
+								<small class="f-s-12 text-grey-darker">建议尺寸750*750</small><br />
+								<small class="f-s-12 text-grey-darker">第一张为列表封面图</small>
+							</label>
+							<div class="col-md-10" style="display: flex;flex-wrap: wrap;">
+								<div id="previewImage"></div>
+								{volist name="coverList" id="cover"}
+									<span class="m-r-15 m-b-10 draggable-element d-{$key}" style="cursor: move;" id="uploadImage{$key}">
+										<img src="{$cover}" width="150" height="150">
+										<input type="hidden" name="cover[]" value="{$cover}">
+										<p style="text-align:center;cursor:pointer" class="m-t-5 f-s-14" onclick="delImage('uploadImage{$key}')">删除图片</p>
+									</span>
+								{/volist}
+								<div class="dropzone" id="myDropzone" style="border:0px solid #fff;width: 150px;height: 150px">
+							        <div class="am-text-success dz-message" style="text-align: center;margin:40px 0;">
+							            <i class="fas fa-plus fa-lg text-grey-lighter"></i>
+							        </div>
+							    </div>
+							</div>
+						</div>
+
+						<div class="form-group row m-b-15">
+							<label class="col-form-label col-md-2">
+								抽奖封面图片<br /><br />
+								<small class="f-s-12 text-grey-darker">建议尺寸603*339</small><br />
+								<small class="f-s-12 text-grey-darker">第一张为列表封面图</small>
+							</label>
+							<div class="col-md-10" style="display: flex;flex-wrap: wrap;">
+								<div id="ppreviewImage"></div>
+								{volist name="pcoverList" id="cover"}
+									<span class="m-r-15 m-b-10 draggable-element d-{$key}" style="cursor: move;" id="puploadImage{$key}">
+										<img src="{$cover}" width="150" height="150">
+										<input type="hidden" name="pcover[]" value="{$cover}">
+										<p style="text-align:center;cursor:pointer" class="m-t-5 f-s-14" onclick="pdelImage('puploadImage{$key}')">删除图片</p>
+									</span>
+								{/volist}
+								<div class="dropzone" id="mypDropzone" style="border:0px solid #fff;width: 150px;height: 150px">
+							        <div class="am-text-success dz-message" style="text-align: center;margin:40px 0;">
+							            <i class="fas fa-plus fa-lg text-grey-lighter"></i>
+							        </div>
+							    </div>
+							</div>
+						</div>
+						<div class="form-group row m-b-15">
+							<label class="col-form-label col-md-2">
+								商品摘要<br />
+								<small class="f-s-12 text-grey-darker">建议100个字左右</small>
+							</label>
+								<div class="col-md-6">
+								
+									<textarea name="summary" class="form-control">{$product.summary}</textarea>
+							</div>
+						</div>
+			        </div>
+			    </div>
+			    <div class="panel panel-inverse">
+			        <!-- begin panel-heading -->
+			        <div class="panel-heading ui-sortable-handle">
+			            <h4 class="panel-title">价格库存</h4>
+			        </div>
+			        <div class="panel-body">
+						<div id="priceAll">
+							<div class="form-group row m-b-15">
+								<label class="col-form-label col-md-2">统一价格</label>
+								<div class="col-md-4">
+									<div class="input-group m-b-10">
+										<div class="input-group-prepend"><span class="input-group-text">￥</span></div>
+										<input type="text" class="form-control" placeholder="商品价格" name="price" value="{$product.price}">
+									</div>
+								</div>
+							</div>
+							<div class="form-group row m-b-15">
+									<label class="col-form-label col-md-2">商品原价</label>
+									<div class="col-md-4">
+										<div class="input-group m-b-10">
+											<div class="input-group-prepend"><span class="input-group-text">￥</span></div>
+											<input type="text" class="form-control" placeholder="商品原价" name="original_price" value="{$product.original_price > 0 ? $product.original_price : $product.price}">
+										</div>
+									</div>
+								</div>
+							<div class="form-group row m-b-15">
+								<label class="col-form-label col-md-2">统一运费</label>
+								<div class="col-md-4">
+									<div class="input-group m-b-10">
+										<div class="input-group-prepend"><span class="input-group-text">￥</span></div>
+										<input type="text" class="form-control" placeholder="商品快递运费" name="shipPrice" value="{$productComment.shipprice}">
+									</div>
+								</div>
+							</div>
+							<div class="form-group row m-b-15">
+								<label class="col-form-label col-md-2">统一库存</label>
+								<div class="col-md-4">
+									<input type="text" class="form-control m-b-5" placeholder="商品库存" name="stock" value="{$product.stock}">
+								</div>
+							</div>
+						</div>
+						<div class="form-group row m-b-15">
+							<div class="col-md-12">
+								<div class="control-group">
+								    <label class="control-label"> </label>
+								    <div class="controls m-b-20">
+								        <button id="add_lv1" class="btn btn-primary" type="button">添加规格项</button>
+								        <button id="update_table" class="btn btn-success" type="button">刷新规格项目表</button>
+								    </div>
+								</div>
+								{volist name="skuList" id="sku"}
+									<div class="control-group lv1">
+										<table class="table table-striped f-s-14">
+										<tr>
+						                    <td width="10%">规格名称</td>
+						                    <td>
+						                        <input type="text" name="lv1[]" id="skuName" value="{$sku.name}"><i class="far fa-trash-alt remove_lv1 m-l-10" type="button"></i>
+						                    </td>
+					                    </tr>
+					                    <tr>
+						                    <td>规格值</td>
+						                    <td>
+						                    	<span class="controls lv2s">
+						                    	{if count($sku['list']) > 0}
+							                    	{foreach $sku.list as $list}
+							                        	<span class="m-r-10">
+							                        		<input type="text" name="lv2[{$key}][]" class="m-b-5" id="skuValue" value="{$list}"  onblur="createSkuTable()">
+							                        		<i class="far fa-trash-alt remove_lv2 m-l-10"></i>
+							                        	</span>
+							                        {/foreach}
+						                        {/if}
+						                        </span>
+						                        <button class="btn btn-primary btn-xs add_lv2 m-b-5" data-id="{$key}" type="button">添加规格值</button>
+						                    </td>
+					                    </tr>
+					                    </table>
+					                </div>
+				                {/volist}
+							</div>
+						</div>
+						<div id="lv_table_con" class="control-group" style="display: none;">
+							<label class="control-label">规格项目表</label>
+							<div class="controls">
+							    <div id="lv_table"></div>
+							</div>
+						</div>
+			        </div>
+			    </div>
+			    <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
+			        <!-- begin panel-heading -->
+			        <div class="panel-heading ui-sortable-handle">
+			            <h4 class="panel-title">商品详情</h4>
+			        </div>
+			        <div class="panel-body">
+						<div class="form-group row m-b-15">
+							<label class="col-form-label col-md-2">
+								商品详情
+							</label>
+								<div class="col-md-9">
+								<textarea name="description" id="editor"></textarea>
+							</div>
+						</div>
+			        </div>
+			    </div>
+			</div>
+			<div class="col-lg-4">
+				<div class="panel panel-inverse">
+				        <!-- begin panel-heading -->
+				        <div class="panel-heading ui-sortable-handle">
+				            <h4 class="panel-title">分类列表</h4>
+				        </div>
+				        <div class="panel-body f-s-16 m-l-15">
+		                  {foreach $pCategoryList as $pcate}
+		                    <li style="list-style-type:none;" id="cate{$pcate.id}" class="m-b-2 m-t-2">
+		                    	<div class="checkbox checkbox-css">
+		                    		<input type="checkbox" id="pCheckbox{$pcate.id}" {in name="$pcate.id" value="$productCategory"}checked{/in} value="{$pcate.id}" name="productCate[]"/>
+									<label for="pCheckbox{$pcate.id}" class="f-w-400">{$pcate.name}</label>
+								</div>
+		                    </li>
+		                    {if count($categoryList[$pcate['id']]) > 0}
+		                      {foreach $categoryList[$pcate['id']] as $cate}
+		                        <li style="list-style-type:none;" id="cate{$cate.id}" class="m-l-20">
+		                        	<div class="checkbox checkbox-css">
+			                    		<input type="checkbox" id="cCheckbox{$cate.id}" {in name="$cate.id" value="$productCategory"}checked{/in} value="{$cate.id}" name="productCate[]"/>
+										<label for="cCheckbox{$cate.id}" class="f-w-400">{$cate.name}</label>
+									</div>
+		                        </li>
+		                      {/foreach}
+		                    {/if}
+		                  {/foreach}
+		              </div>
+				</div>
+				<div class="panel panel-inverse">
+				    <!-- begin panel-heading -->
+				    <div class="panel-heading ui-sortable-handle">
+				        <h4 class="panel-title">团购设置</h4>
+					</div>
+					<div class="panel-body f-s-16 m-l-15">
+						<div class="form-group row m-b-15">
+							<label class="col-form-label col-md-4 f-w-400">是否是团购</label>
+							<div class="col-md-8 m-t-5">
+								<div class="switcher">
+									<input type="checkbox" name="isGroup" id="isgroup" {$product.goodssort == 1 ? 'checked' : ''}  value="1" onclick="openGroup()">
+			  						<label for="isgroup"></label>
+								</div>
+							</div>
+						</div>
+						<div id="showIsGroup" style="display: {$product.goodssort == 1 ? '' : 'none'}">
+							<div class="form-group row m-b-15">
+								<label class="col-form-label col-md-4 f-w-400">团购价</label>
+								<div class="col-md-8">
+									<div class="input-group m-b-10">
+										<div class="input-group-prepend"><span class="input-group-text">￥</span></div>
+										<input type="text" class="form-control" name="groupPrice" value="{$productGroup.price}">
+									</div>
+								</div>
+							</div>
+							<div class="form-group row m-b-15">
+								<label class="col-form-label col-md-4 f-w-400">成团人数</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control m-b-5" name="groupJoinNum" value="{$productGroup.joinnum}">
+								</div>
+							</div>
+						</div>
+		        	</div>
+				</div>
+				<div class="panel panel-inverse">
+				    <!-- begin panel-heading -->
+				    <div class="panel-heading ui-sortable-handle">
+				        <h4 class="panel-title">抽奖设置</h4>
+					</div>
+					<div class="panel-body f-s-16 m-l-15">
+						<div class="form-group row m-b-15">
+							<label class="col-form-label col-md-4 f-w-400">是否开启抽奖</label>
+							<div class="col-md-8 m-t-5">
+								<div class="switcher">
+									<input type="checkbox" name="isLottery" id="islottery" {$product.goodssort == 2 ? 'checked' : ''}  value="1" onclick="openLottery()">
+			  						<label for="islottery"></label>
+								</div>
+							</div>
+						</div>
+						<div id="showIsLottery" style="display: {$product.goodssort == 2 ? '' : 'none'}">
+							<div class="form-group row m-b-15">
+								<label class="col-form-label col-md-4 f-w-400">奖品数量</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control m-b-5" name="lotteryPriceNum" value="{$productLottery.pricenum}">
+								</div>
+							</div>
+							<!-- <div class="form-group row m-b-15">
+								<label class="col-form-label col-md-4 f-w-400">抽奖助力人数</label>
+								<div class="col-md-8">
+									<div class="input-group m-b-10">
+										<input type="text" class="form-control" name="lotteryInviteNum" value="{$productLottery.joinnum}">
+									</div>
+								</div>
+							</div> -->
+
+							<div class="form-group row m-b-15">
+								<label class="col-form-label col-md-4 f-w-400">抽奖参与人数</label>
+								<div class="col-md-8">
+									<div class="input-group m-b-10">
+										<input type="text" class="form-control" name="totalnum" value="{$productLottery.totalnum}">
+									</div>
+								</div>
+							</div>
+							<div class="form-group row m-b-15">
+								<label class="col-form-label col-md-4 f-w-400">开奖时间</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control m-b-5" name="lotteryEndTime" value="{$productLottery.endtime}" id="datetimepicker1">
+								</div>
+							</div>
+
+						</div>
+		        	</div>
+				</div>
+				<div class="panel panel-inverse">
+				    <!-- begin panel-heading -->
+				    <div class="panel-heading ui-sortable-handle">
+				        <h4 class="panel-title">发布商品</h4>
+					</div>
+					<div class="panel-body f-s-16 m-l-15">
+						<div class="form-group row m-b-15">
+							<label class="col-form-label col-md-6 f-w-400">是否置顶</label>
+							<div class="col-md-6 m-t-5">
+								<div class="switcher">
+									<input type="checkbox" name="istop" id="istop" {$product.istop ? 'checked' : ''}  value="1">
+			  						<label for="istop"></label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-4 m-t-5"></div>
+							<div class="col-md-6 m-t-10">
+								<button type="submit" class="btn btn-primary">点击提交</button>
+							</div>
+						</div>
+		        	</div>
+				</div>
+			</div>
+	  	</div>
+  	</form>
+</div>
+<div id="uploadPreview">
+	<img data-dz-thumbnail />
+</div>
+{include file="common/footer" /}
+
+{js href="__ROOT__/public/assets/plugins/ckeditor/ckeditor.js" /}
+
+<script type="text/javascript">
+    var skuNum = 1;
+
+    $('.draggable-element').arrangeable();
+    $('#datetimepicker1').datetimepicker({
+    	format: 'YYYY-MM-DD HH:mm:ss',
+    	defaultDate: '{$productLottery.endtime}'
+    });
+
+    Cookies.set('productSku', '{$productSku}', { expires: 7 });
+
+    createSkuTable('{$productSku}');
+
+    $(document).ready(function() {
+        $('#add_lv1').on('click', function() {
+        	var skuNum = $('.control-group.lv1').length;
+
+        	var html = '<div class="control-group lv1">' +
+					'<table class="table table-striped f-s-14">'+
+					'<tr>' +
+	                    '<td width="10%">规格名称</td>' +
+	                    '<td>' +
+	                        '<input type="text" name="lv1[]" id="skuName"><i class="far fa-trash-alt remove_lv1 m-l-10" type="button"></i>' +
+	                    '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+	                    '<td>规格值</td>' +
+	                    '<td>'+
+	                        '<span class="controls lv2s"></span>' +
+	                        '<button class="btn btn-primary btn-xs add_lv2 m-b-5" data-id="' + skuNum + '" type="button">添加规格值</button>' +
+	                    '</td>' +
+                    '</tr>' +
+                    '</table>' +
+                '</div>';
+
+        	if(skuNum <3) {
+        		var last = $('.control-group.lv1:last');
+	            if (!last || last.length == 0) {
+	                $(this).parents('.control-group').eq(0).after(html);
+	            } else {
+	                last.after(html);
+	            }
+        	} else {
+        		swal('最多设置三级规格', "", "warning");
+        	}
+        });
+
+        $(document).on('click', '.remove_lv1', function() {
+            $(this).parents('.lv1').remove();
+        });
+
+        $(document).on('click', '.add_lv2', function() {
+        	let id = $(this).data("id");
+        	let html = '<span class="m-r-10">' +
+                    '<input type="text" name="lv2['+id+'][]" class="m-b-5" id="skuValue" onblur="createSkuTable()">' +
+                    '<i class="far fa-trash-alt remove_lv2 m-l-10"></i></span>';
+            $(this).parents('.lv1').find('.lv2s').append(html);
+        });
+
+        $(document).on('click', '.remove_lv2', function() {
+            $(this).parent().remove();
+            createSkuTable();
+        });
+
+        $('#update_table').on('click', function() {
+            createSkuTable();
+        });
+    });
+
+	function createSkuTable() {
+		var skuData = Cookies.get('productSku'); 
+		skuData = JSON.parse(skuData);
+
+		console.log(skuData)
+
+		var lv1Arr = $('input[id="skuName"]');
+        if (!lv1Arr || lv1Arr.length == 0) {
+            $('#lv_table_con').hide();
+            $('#lv_table').html('');
+            return;
+        }
+        for (var i = 0; i < lv1Arr.length; i++) {
+            var lv2Arr = $(lv1Arr[i]).parents('.lv1').find('input[id="skuValue"]');
+            if (!lv2Arr || lv2Arr.length == 0) {
+               	swal('请添加规格项内容', "", "warning");
+                return;
+            }
+        }
+
+       	var tableHTML = '';
+        tableHTML += '<table class="table table-bordered">';
+        tableHTML += '    <thead>';
+        tableHTML += '        <tr>';
+        for (var i = 0; i < lv1Arr.length; i++) {
+            tableHTML += '<th>' + $(lv1Arr[i]).val() + '</th>';
+        }
+        tableHTML += '            <th width="10%">现价</th>';
+        tableHTML += '            <th width="10%">库存</th>';
+        tableHTML += '            <th width="10%">原价</th>';
+        tableHTML += '        </tr>';
+        tableHTML += '    </thead>';
+        tableHTML += '    <tbody>';
+             
+            var numsArr = new Array();
+            var idxArr = new Array();
+            for (var i = 0; i < lv1Arr.length; i++) {
+                numsArr.push($(lv1Arr[i]).parents('.lv1').find('input[id="skuValue"]').length);
+                idxArr[i] = 0;
+            }
+             
+            var len = 1;
+            var rowsArr = new Array();
+            for (var i = 0; i < numsArr.length; i++) {
+                len = len * numsArr[i];
+                 
+                var tmpnum = 1;
+                for (var j = numsArr.length - 1; j > i; j--) {
+                    tmpnum = tmpnum * numsArr[j];
+                }
+                rowsArr.push(tmpnum);
+            }
+             
+            for (var i = 0; i < len; i++) {
+                tableHTML += '        <tr data-row="' + (i+1) + '">';
+                 
+                var name = '';
+                for (var j = 0; j < lv1Arr.length; j++) {
+                    var n = parseInt(i / rowsArr[j]);
+                    if (j == 0) {
+                    } else if (j == lv1Arr.length - 1) {
+                        n = idxArr[j];
+                        if (idxArr[j] + 1 >= numsArr[j]) {
+                            idxArr[j] = 0;
+                        } else {
+                            idxArr[j]++;
+                        }
+                    } else {
+                        var m = parseInt(i / rowsArr[j]);
+                        n = m % numsArr[j];
+                    }
+                     
+                    var text = $(lv1Arr[j]).parents('.lv1').find('input[id="skuValue"]').eq(n).val();
+                    if (j != lv1Arr.length - 1) {
+                        name += text + '_';
+                    } else {
+                        name += text;
+                    }
+                     
+                    if (i % rowsArr[j] == 0) {
+                        tableHTML += '<td rowspan="' + rowsArr[j] + '" data-rc="' + (i+1) + '_' + (j+1) + '">' + text + '</td>';
+                    }
+                }
+
+                if(skuData[name]) {
+                	tableHTML += '<td width="10%"><input type="text" name="skuPrice[' + name + ']" value="'+skuData[name]['price']+'"/></td>';
+	                tableHTML += '<td width="10%"><input type="text" name="skuStock[' + name + ']"  value="'+skuData[name]['stock']+'"/></td>';
+	                tableHTML += '<td width="10%"><input type="text" name="skuOprice[' + name + ']"  value="'+skuData[name]['oprice']+'"/></td>';
+	                tableHTML += '</tr>';
+                } else {
+                	tableHTML += '<td width="10%"><input type="text" name="skuPrice[' + name + ']"/></td>';
+	                tableHTML += '<td width="10%"><input type="text" name="skuStock[' + name + ']"/></td>';
+	                tableHTML += '<td width="10%"><input type="text" name="skuOprice[' + name + ']"/></td>';
+	                tableHTML += '</tr>';
+                }
+
+            }
+        tableHTML += '</tbody>';
+        tableHTML += '</table>';
+             
+        $('#lv_table_con').show();
+        $('#lv_table').html(tableHTML);
+	}
+
+	var editor = CKEDITOR.replace( 'editor', {
+        height: 250,
+        extraPlugins: 'simage',//to enable to plugin
+ 		imageUploadURL: '__ROOT__/admincp/Ajax/upload',
+ 		dataParser: function(data){
+		 	if (data){
+		 		return data.url
+		 	}
+		}
+    });
+
+    CKEDITOR.instances['editor'].setData('{$productComment.description}');
+
+	$('#resourceCoverShow').hide();
+
+	Dropzone.autoDiscover = false;
+  	var myDropzone = new Dropzone("#myDropzone", {
+	    url: "__ROOT__/admincp/Ajax/upload",
+	    addRemoveLinks: true,
+	    method: 'post',
+	    filesizeBase: 1024,
+	    maxFiles:10,
+	    maxFilesize: 1,
+	    acceptedFiles: ".jpg,.gif,.png,.jpeg",
+	    dictMaxFilesExceeded: "一次最多只能上传10个文件！",
+	    dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.gif,*.png。",
+	    dictFileTooBig: '文件太大了，图片文件大小不能超过1MB',
+	    dictRemoveFile: '删除素材',
+	    previewsContainer: '#uploadPreview',
+	    sending: function(file, xhr, formData) {
+	      formData.append('file', file);
+	    },
+	    success: function (file, response, e) {
+	    	var div = 'uploadImage' + response['id'];
+	    	var html = '<span class="m-r-15 m-b-10 draggable-element d-' + response['id'] + '" style="cursor: move;" id="uploadImage'+ response['id'] +'">' +
+	    				'<img src="' + response['url'] + '" width="150" height="150">'+
+	    				'<input type="hidden" name="cover[]" value="'+response['url']+'">'+
+	    				'<p style="text-align:center;cursor:pointer" class="m-t-5 f-s-14" onclick="delImage(\''+div+'\')">删除图片</p>'+
+	    				'</span>'
+	    	$('#previewImage').after(html)
+	    	$('.draggable-element').arrangeable();
+	    }
+	});
+
+	var myDropzone = new Dropzone("#mypDropzone", {
+	    url: "__ROOT__/admincp/Ajax/upload",
+	    addRemoveLinks: true,
+	    method: 'post',
+	    filesizeBase: 1024,
+	    maxFiles:10,
+	    maxFilesize: 1,
+	    acceptedFiles: ".jpg,.gif,.png,.jpeg",
+	    dictMaxFilesExceeded: "一次最多只能上传10个文件！",
+	    dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.gif,*.png。",
+	    dictFileTooBig: '文件太大了，图片文件大小不能超过1MB',
+	    dictRemoveFile: '删除素材',
+	    previewsContainer: '#uploadPreview',
+	    sending: function(file, xhr, formData) {
+	      formData.append('file', file);
+	    },
+	    success: function (file, response, e) {
+	    	var div = 'uploadImage' + response['id'];
+	    	var html = '<span class="m-r-15 m-b-10 draggable-element d-' + response['id'] + '" style="cursor: move;" id="uploadImage'+ response['id'] +'">' +
+	    				'<img src="' + response['url'] + '" width="150" height="150">'+
+	    				'<input type="hidden" name="pcover[]" value="'+response['url']+'">'+
+	    				'<p style="text-align:center;cursor:pointer" class="m-t-5 f-s-14" onclick="pdelImage(\''+div+'\')">删除图片</p>'+
+	    				'</span>'
+	    	$('#ppreviewImage').after(html)
+	    	$('.draggable-element').arrangeable();
+	    }
+	});
+
+  	function delImage(id) {
+        $('#'+id).remove();
+	}
+	
+	function pdelImage(id) {
+        $('#'+id).remove();
+    }
+
+    function openGroup() {
+    	var show = $('#showIsGroup').css('display');
+		if (show == 'block') {
+			$('#showIsGroup').hide();
+		}
+		if (show == 'none') {
+			$('#showIsGroup').show();
+			$('#showIsLottery').hide();
+			$('#islottery').attr('checked', false);
+		}
+    }
+
+    function openLottery() {
+    	var show = $('#showIsLottery').css('display');
+		if (show == 'block') {
+			$('#showIsLottery').hide();
+		}
+		if (show == 'none') {
+			$('#showIsLottery').show();
+			$('#showIsGroup').hide();
+			$('#isgroup').attr('checked', false);
+		}
+    }
+    function validate()
+    {
+
+        var names = document.getElementsByName("productCate[]");
+        var flag = false ;//标记判断是否选中一个
+        for(var i=0;i<names.length;i++){
+            if(names[i].checked){
+                flag = true ;
+                break ;
+            }
+        }
+
+        //判断是否团购
+        var show = $('#showIsGroup').css('display');
+        //判断是否开启抽奖
+        var show1 = $('#showIsLottery').css('display');
+        if(document.a.title.value == '')
+        {
+            alert("请填写商品名称");
+            document.a.title.focus();
+            return false;
+        }else if(document.a.summary.value == ''){
+            alert("请填写商品摘要");
+            document.a.summary.focus();
+            return false;
+
+        }else if(document.a.price.value == ''){
+            alert("请填写商品价格");
+            document.a.price.focus();
+            return false;
+
+        }else if(document.a.shipPrice.value == ''){
+            alert("请填写商品运费");
+            document.a.shipPrice.focus();
+            return false;
+
+        }else if(document.a.stock.value == ''){
+            alert("请填写商品库存");
+            document.a.stock.focus();
+            return false;
+
+        }else if(!flag){
+            alert("请选择分类");
+            return false ;
+
+        }
+
+        else if(document.a.stock.value == ''){
+            alert("请填写商品库存");
+            document.a.stock.focus();
+            return false;
+
+        }else if(show == 'block'){
+            if(document.a.groupPrice.value == ''){
+                alert("请填写团购价");
+                document.a.groupPrice.focus();
+                return false;
+            }else if(document.a.groupJoinNum.value == ''){
+                alert("请填写成员人数");
+                document.a.groupJoinNum.focus();
+                return false;
+            }
+        }else if(show1 == 'block'){
+            if(document.a.lotteryPriceNum.value == ''){
+                alert("请填写奖品数量");
+                document.a.lotteryPriceNum.focus();
+                return false;
+            }else if(document.a.lotteryInviteNum.value == ''){
+                alert("请填写抽奖助力人数");
+                document.a.lotteryInviteNum.focus();
+                return false;
+            }else if(document.a.lotteryEndTime.value == ''){
+                alert("请填写开奖时间");
+                document.a.lotteryEndTime.focus();
+                return false;
+            }
+
+        }
+
+    }
+
+</script>

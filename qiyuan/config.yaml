@@ -1,0 +1,6 @@
+name: fytest
+version: 2
+
+handle:
+- rewrite: if(%{REQUEST_URI}~"^/(.*)$" && %{REQUEST_URI}!~"^/public(.*)$") goto "/public/%1" 
+- rewrite: if(!-f && path~"^/public/(.*)$") goto "/public/index.php/$1"

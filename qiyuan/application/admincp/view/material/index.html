@@ -1,0 +1,90 @@
+{include file="common/header" /}
+{include file="common/menu" /}
+{css href="__ROOT__/public/assets/plugins/dropzone/min/dropzone.min.css" rel="stylesheet" /}
+<div id="content" class="content">
+  <!-- begin breadcrumb -->
+  <ol class="breadcrumb pull-right">
+    <li class="breadcrumb-item"><a href="javascript:;">管理后台</a></li>
+    <li class="breadcrumb-item active">素材管理</li>
+  </ol>
+  <!-- end breadcrumb -->
+  <!-- begin page-header -->
+  <h1 class="page-header">素材管理</h1>
+  <!-- end page-header -->
+  <div class="row">
+    <div class="col-lg-2">
+      <div class="widget-list widget-list-rounded">
+        <!-- begin widget-list-item -->
+        <a href="#" class="widget-list-item">
+          <div class="widget-list-media icon">
+            <i class="fa fa-file bg-red-transparent-5 text-inverse text-white"></i>
+          </div>
+          <div class="widget-list-content">
+            <h4 class="widget-list-title">资讯素材</h4>
+          </div>
+          <div class="widget-list-action text-nowrap text-grey-darker text-right">
+            123个
+            <i class="fa fa-angle-right text-muted t-plus-1 fa-lg m-l-5"></i>
+          </div>
+        </a>
+        <a href="#" class="widget-list-item">
+          <div class="widget-list-media icon">
+            <i class="fa fa-shopping-cart bg-red-transparent-5 text-inverse text-white"></i>
+          </div>
+          <div class="widget-list-content">
+            <h4 class="widget-list-title">商品素材</h4>
+          </div>
+          <div class="widget-list-action text-nowrap text-grey-darker text-right">
+            123个
+            <i class="fa fa-angle-right text-muted t-plus-1 fa-lg m-l-5"></i>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-10">
+      <div class="panel panel-inverse" data-sortable-id="form-dropzone-1">
+         <div class="panel-heading">
+            <h4 class="panel-title">素材列表</h4>
+         </div>
+         <div class="panel-body text-inverse">
+            <div class="dropzone" id="myDropzone">
+              <div class="am-text-success dz-message">
+                将文件拖拽到此处或点此上传文件
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{include file="common/footer" /}
+<script src="__ROOT__/public/assets/plugins/dropzone/min/dropzone.min.js"></script>
+<script type="text/javascript">
+
+  var funcNum = 1;
+  var fileUrl = 'http://c.cksource.com/a/1/img/sample.jpg';
+  window.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl, function() {});
+ 
+  
+  Dropzone.autoDiscover = false;
+  var myDropzone = new Dropzone("#myDropzone", {
+    url: "__ROOT__/admincp/Ajax/upload",
+    addRemoveLinks: true,
+    method: 'post',
+    filesizeBase: 1024,
+    maxFiles:10,
+    maxFilesize: 1,
+    acceptedFiles: ".jpg,.gif,.png",
+    dictMaxFilesExceeded: "一次最多只能上传10个文件！",
+    dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.gif,*.png。",
+    dictFileTooBig: '文件太大了，图片文件大小不能超过1MB',
+    dictRemoveFile: '删除素材',
+    sending: function(file, xhr, formData) {
+      formData.append('fileInfo', file);
+    },
+    success: function (file, response, e) {
+      console.log(response);
+    }
+  });
+</script>

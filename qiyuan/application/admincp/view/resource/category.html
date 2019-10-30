@@ -1,0 +1,120 @@
+{include file="common/header" /}
+{include file="common/menu" /}
+
+<div id="content" class="content">
+	<!-- begin breadcrumb -->
+	<ol class="breadcrumb pull-right">
+    	<li class="breadcrumb-item"><a href="javascript:;">管理后台</a></li>
+    	<li class="breadcrumb-item">资讯管理</li>
+      <li class="breadcrumb-item active">{$title}</li>
+  	</ol>
+	<h1 class="page-header">{$title}</h1>
+  <div class="row">
+        <div class="col-lg-3">
+          <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+              <div class="panel-heading ui-sortable-handle">
+                <h4 class="panel-title">分类列表</h4>
+              </div>
+              <div class="panel-body f-s-16 m-l-15">
+                  {foreach $pCategoryList as $pcate}
+                    <li style="list-style-type:none;" id="cate{$pcate.id}">
+                      <span class="m-r-5">{$pcate.name}</span>
+                      <i class="far fa-edit fa-fw f-s-10 p-b-5" style="cursor:pointer" onclick="getCategory({$pcate.id})"></i>
+                      <i class="far fa-trash-alt fa-fw f-s-10 p-b-5" style="cursor:pointer" onclick="delCate({$pcate.id})"></i>
+                    </li>
+                  {/foreach}
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <div class="panel panel-inverse" data-sortable-id="tree-view-1">
+              <div class="panel-heading ui-sortable-handle">
+                <h4 class="panel-title" id="tableTitle">添加分类</h4>
+              </div>
+              <form action="__ROOT__/admincp/resource/addCategory" method="post">
+                <input type="hidden" name="sort" value="{$sort}">
+                <input type="hidden" name="cid" value="" id="categoryid">
+                <input type="hidden" name="cateCover" id="cateCover">
+                <div class="panel-body">
+                  <div class="form-group row m-b-15">
+                      <label class="col-form-label col-md-1">分类名称</label>
+                      <div class="col-md-5">
+                        <input type="text" class="form-control m-b-5" name="cname" placeholder="输入分类" id="categoryidName">
+                      </div>
+                  </div>
+                  <div class="form-group row m-b-0">
+                    <label class="col-md-1 col-sm-1 col-form-label">&nbsp;</label>
+                    <div class="col-md-4 col-sm-4">
+                      <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+  </div>
+</div>
+
+<div id="uploadPreview" style="display: none;">
+  <img src="" alt="" style="width: 100%;height: 200px" id="cateCoverShow"/>
+</div>
+{include file="common/footer" /}
+
+<script type="text/javascript">
+  function delCate(id) {
+    swal({ 
+      title: "确定删除该分类吗？", 
+      text: "你将无法恢复该分类！", 
+      type: "warning",
+      showCancelButton: true, 
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "确定", 
+      cancelButtonText: "取消",
+      closeOnConfirm: false, 
+      closeOnCancel: false  
+    },
+    function(isConfirm){ 
+      if (isConfirm) { 
+        $.ajax({
+          url:'__ROOT__/admincp/resource/hiddenCategory',
+          type:'POST',
+          data: {
+              id: id,
+          },  
+          success: function(msg) {
+            $('#cate' + id).hide();
+            swal("分类已删除",'',"success"); 
+          }
+        });
+        
+      } else { 
+        swal("已取消删除",'',"error"); 
+      } 
+    });
+  };
+
+  function getCategory(id) {
+    $.ajax({
+        url:'__ROOT__/admincp/resource/categoryDetail',
+        type:'POST',
+        data: {
+            id: id,
+        },  
+        success: function(msg) {
+            if(!msg['error']) {
+                var msg = JSON.parse(msg);
+                $("#categoryid").attr("value",id);
+                $("#categoryidName").attr("value",msg['name']);
+                if(msg['cover']) {
+                  $("#cateCover").attr("value",msg['cover']);
+                  $('#cateCoverShow').show();
+                  $('#uploadTips').hide();
+                  $("#cateCoverShow").attr("src",msg['cover']);
+                }
+            } else {
+                swal(msg['error'], "", "warning");
+            }
+        }
+    });
+  };
+</script>
