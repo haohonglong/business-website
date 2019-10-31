@@ -10,7 +10,7 @@
 use yii\helpers\Url;
 $this->title = '首页';
 $slider = \common\models\Options::getBannersByType('index_slider');
-$video = \common\models\Video::getVoidoById(49);
+$video = \common\models\Video::getVoidoById(0);
 $video['url'] = Yii::getAlias('@web').$video['url'];
 
 ?>

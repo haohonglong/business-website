@@ -38,9 +38,13 @@ class Video extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function getVoidoById($id)
+    public static function getVoidoById($id=0)
     {
-        $model = self::find()->select('title,url,created_at')->where(['id'=>$id])->limit(1)->one();
+        $query = self::find()->select('title,url,created_at');
+            if($id > 0){
+                $query->where(['id'=>$id]);
+            }
+        $model = $query->limit(1)->one();
         if($model){
             $arr = [];
             $url =Yii::getAlias('@frontend/web').$model->url;
